@@ -1,0 +1,8 @@
+type User {
+  id: Int!
+  firstName: String
+  lastName: String
+  fullName: String
+  phoneNumber: String
+  verifiedPhoneNumber: Boolean!
+}

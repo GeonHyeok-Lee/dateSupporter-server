@@ -6,3 +6,7 @@ type User {
   phoneNumber: String
   verifiedPhoneNumber: Boolean!
 }
+
+type Query {
+  user: User
+}

@@ -1,20 +1,27 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { IsEmail } from "class-validator";
 
 @Entity()
 class User extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column({ type: "text" })
-  firstName: string;
+  @IsEmail()
+  email: string | null;
 
-  @Column({ type: "text" })
-  lastName: string;
+  @Column({ type: "text", nullable: true })
+  firstName: string | null;
 
-  @Column({ type: "text" })
-  phoneNumber: string;
+  @Column({ type: "text", nullable: true })
+  lastName: string | null;
+
+  @Column({ type: "text", nullable: true })
+  phoneNumber: string | null;
 
   @Column({ type: "boolean", default: false })
   verifiedPhoneNumber: boolean;
+
+  @Column({ type: "text", nullable: true })
+  fbId: string | null;
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;

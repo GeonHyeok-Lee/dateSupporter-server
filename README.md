@@ -11,5 +11,5 @@ Typescript, Graphql
 
 ### Authentication:
 
-- [x] Generate JWT
-- [] Verify JWT
+- [x] Create JWT
+- [x] Decode JWT

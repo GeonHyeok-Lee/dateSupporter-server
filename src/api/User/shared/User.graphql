@@ -1,6 +1,7 @@
 type User {
   id: Int!
   fbId: String
+  googleId: String
   email: String
   firstName: String
   lastName: String

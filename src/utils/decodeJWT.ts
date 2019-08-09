@@ -9,7 +9,7 @@ const decodeJWT = async (token: string): Promise<User | undefined> => {
       process.env.JWT_TOKEN || "",
       (error, decodedObject) => {
         if (error) {
-          console.log(error);
+          console.log(`jwt.verify: ${error}`);
         } else {
           decoded = decodedObject;
         }

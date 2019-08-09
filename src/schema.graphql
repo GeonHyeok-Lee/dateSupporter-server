@@ -5,12 +5,20 @@ type FacebookConnectResponse {
 }
 
 type Mutation {
-  FacebookConnect(firstName: String, lastName: String, email: String, fbId: String!): FacebookConnectResponse!
+  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
+  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
+}
+
+type GoogleConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
 }
 
 type User {
   id: Int!
   fbId: String
+  googleId: String
   email: String
   firstName: String
   lastName: String

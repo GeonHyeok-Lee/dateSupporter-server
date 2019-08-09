@@ -23,6 +23,9 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: true })
   fbId: string | null;
 
+  @Column({ type: "text", nullable: true })
+  googleId: string | null;
+
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }

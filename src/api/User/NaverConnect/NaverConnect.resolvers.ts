@@ -1,6 +1,6 @@
 import {
-  GoogleConnectMutationArgs,
-  GoogleConnectResponse
+  NaverConnectMutationArgs,
+  NaverConnectResponse
 } from "@src/types/graph";
 import User from "@src/entities/User";
 import { Resolvers } from "@src/types/resolvers";
@@ -8,13 +8,13 @@ import createJWT from "@src/utils/createJWT";
 
 const resolvers: Resolvers = {
   Mutation: {
-    GoogleConnect: async (
+    NaverConnect: async (
       _,
-      args: GoogleConnectMutationArgs
-    ): Promise<GoogleConnectResponse> => {
-      const { googleId } = args;
+      args: NaverConnectMutationArgs
+    ): Promise<NaverConnectResponse> => {
+      const { naverId } = args;
       try {
-        const existingUser = await User.findOne({ googleId });
+        const existingUser = await User.findOne({ naverId });
         if (existingUser) {
           const token = createJWT(existingUser.id);
           return {

@@ -9,6 +9,9 @@ class User extends BaseEntity {
   email: string | null;
 
   @Column({ type: "text", nullable: true })
+  name: string | null;
+
+  @Column({ type: "text", nullable: true })
   firstName: string | null;
 
   @Column({ type: "text", nullable: true })
@@ -25,6 +28,12 @@ class User extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   googleId: string | null;
+
+  @Column({ type: "text", nullable: true })
+  kakaoId: string | null;
+
+  @Column({ type: "text", nullable: true })
+  naverId: string | null;
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;

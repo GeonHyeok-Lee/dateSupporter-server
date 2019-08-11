@@ -7,9 +7,23 @@ type FacebookConnectResponse {
 type Mutation {
   FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
   GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
+  KakaoConnect(firstName: String, lastName: String, name: String, email: String!, kakaoId: String!): KakaoConnectResponse!
+  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
 }
 
 type GoogleConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type KakaoConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type NaverConnectResponse {
   ok: Boolean!
   error: String
   token: String
@@ -19,7 +33,10 @@ type User {
   id: Int!
   fbId: String
   googleId: String
+  kakaoId: String
+  naverId: String
   email: String
+  name: String
   firstName: String
   lastName: String
   fullName: String

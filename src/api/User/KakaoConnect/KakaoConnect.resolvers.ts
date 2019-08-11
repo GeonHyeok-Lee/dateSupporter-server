@@ -1,6 +1,6 @@
 import {
-  GoogleConnectMutationArgs,
-  GoogleConnectResponse
+  KakaoConnectMutationArgs,
+  KakaoConnectResponse
 } from "@src/types/graph";
 import User from "@src/entities/User";
 import { Resolvers } from "@src/types/resolvers";
@@ -8,13 +8,13 @@ import createJWT from "@src/utils/createJWT";
 
 const resolvers: Resolvers = {
   Mutation: {
-    GoogleConnect: async (
+    KakaoConnect: async (
       _,
-      args: GoogleConnectMutationArgs
-    ): Promise<GoogleConnectResponse> => {
-      const { googleId } = args;
+      args: KakaoConnectMutationArgs
+    ): Promise<KakaoConnectResponse> => {
+      const { kakaoId } = args;
       try {
-        const existingUser = await User.findOne({ googleId });
+        const existingUser = await User.findOne({ kakaoId });
         if (existingUser) {
           const token = createJWT(existingUser.id);
           return {

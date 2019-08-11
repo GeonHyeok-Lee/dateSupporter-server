@@ -1,0 +1,15 @@
+type KakaoConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  KakaoConnect(
+    firstName: String
+    lastName: String
+    name: String
+    email: String!
+    kakaoId: String!
+  ): KakaoConnectResponse!
+}

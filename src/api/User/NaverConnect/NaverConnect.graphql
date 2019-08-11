@@ -1,0 +1,15 @@
+type NaverConnectResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type Mutation {
+  NaverConnect(
+    firstName: String
+    lastName: String
+    name: String
+    email: String!
+    naverId: String!
+  ): NaverConnectResponse!
+}

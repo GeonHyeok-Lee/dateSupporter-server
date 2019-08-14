@@ -1,15 +1,17 @@
 type User {
   id: Int!
-  fbId: String
-  googleId: String
-  kakaoId: String
-  naverId: String
-  email: String
-  name: String
-  firstName: String
-  lastName: String
-  fullName: String
-  phoneNumber: String
+  fbId: String!
+  googleId: String!
+  kakaoId: String!
+  naverId: String!
+  email: String!
+  name: String!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  phoneNumber: String!
+  isProposed: Boolean!
+  isAccepted: Boolean!
   verifiedPhoneNumber: Boolean!
 }
 

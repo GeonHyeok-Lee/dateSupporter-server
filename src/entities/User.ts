@@ -1,5 +1,14 @@
-import { Entity, BaseEntity, PrimaryGeneratedColumn, Column } from "typeorm";
+import {
+  Entity,
+  BaseEntity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany
+} from "typeorm";
 import { IsEmail } from "class-validator";
+import Chat from "./Chat";
+import Message from "./Message";
+import Couple from "./Couple";
 
 @Entity()
 class User extends BaseEntity {
@@ -34,6 +43,27 @@ class User extends BaseEntity {
 
   @Column({ type: "text", nullable: true })
   naverId: string | null;
+
+  @Column({ type: "boolean", default: false })
+  isProposed: boolean;
+
+  @Column({ type: "boolean", default: false })
+  isAccepted: boolean;
+
+  @OneToMany(type => Chat, chat => chat.proposedUser)
+  chatsAsProposedUser: Chat[];
+
+  @OneToMany(type => Chat, chat => chat.acceptedUser)
+  chatsAsAcceptedUser: Chat[];
+
+  @OneToMany(type => Couple, couple => couple.proposedUser)
+  couplesAsProposedUser: Couple[];
+
+  @OneToMany(type => Couple, couple => couple.acceptedUser)
+  couplesAsAcceptedUser: Couple[];
+
+  @OneToMany(type => Message, message => message.user)
+  messages: Message[];
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;

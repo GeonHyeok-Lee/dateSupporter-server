@@ -1,0 +1,10 @@
+type Chat {
+  id: Int!
+  messages: [Message]
+  acceptedUser: User!
+  acceptedId: Int!
+  proposedUser: User!
+  proposedId: Int!
+  createdAt: String!
+  updatedAt: String!
+}

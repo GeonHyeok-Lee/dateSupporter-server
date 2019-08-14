@@ -1,3 +1,23 @@
+type Chat {
+  id: Int!
+  messages: [Message]
+  acceptedUser: User!
+  acceptedId: Int!
+  proposedUser: User!
+  proposedId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  chatId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type FacebookConnectResponse {
   ok: Boolean!
   error: String
@@ -31,16 +51,18 @@ type NaverConnectResponse {
 
 type User {
   id: Int!
-  fbId: String
-  googleId: String
-  kakaoId: String
-  naverId: String
-  email: String
-  name: String
-  firstName: String
-  lastName: String
-  fullName: String
-  phoneNumber: String
+  fbId: String!
+  googleId: String!
+  kakaoId: String!
+  naverId: String!
+  email: String!
+  name: String!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  phoneNumber: String!
+  isProposed: Boolean!
+  isAccepted: Boolean!
   verifiedPhoneNumber: Boolean!
 }
 

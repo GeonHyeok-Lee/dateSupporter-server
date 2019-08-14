@@ -9,6 +9,42 @@ type Chat {
   updatedAt: String!
 }
 
+type GetCoupleResponse {
+  ok: Boolean!
+  error: String
+  couple: Couple
+}
+
+type Query {
+  GetCouple(coupleId: Int!): GetCoupleResponse!
+}
+
+type RequestCoupleResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Mutation {
+  RequestCouple: RequestCoupleResponse!
+  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
+  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
+  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
+  KakaoConnect(firstName: String, lastName: String, name: String, email: String!, kakaoId: String!): KakaoConnectResponse!
+  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
+type Couple {
+  id: Int!
+  chat: Chat
+  proposedUser: User
+  proposedUserId: Int!
+  acceptedUser: User
+  acceptedUserId: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
 type Message {
   id: Int!
   text: String!
@@ -18,17 +54,15 @@ type Message {
   updatedAt: String!
 }
 
+type CompletePhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
 type FacebookConnectResponse {
   ok: Boolean!
   error: String
   token: String
-}
-
-type Mutation {
-  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
-  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
-  KakaoConnect(firstName: String, lastName: String, name: String, email: String!, kakaoId: String!): KakaoConnectResponse!
-  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
 }
 
 type GoogleConnectResponse {
@@ -66,6 +100,19 @@ type User {
   verifiedPhoneNumber: Boolean!
 }
 
-type Query {
-  user: User
+type StartPhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Verification {
+  id: Int!
+  target: String!
+  payload: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  verificationUser: User
+  verificationUserId: Int!
 }

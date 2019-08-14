@@ -1,0 +1,10 @@
+type Couple {
+  id: Int!
+  chat: Chat
+  proposedUser: User
+  proposedUserId: Int!
+  acceptedUser: User
+  acceptedUserId: Int!
+  createdAt: String!
+  updatedAt: String!
+}

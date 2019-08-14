@@ -14,7 +14,3 @@ type User {
   isAccepted: Boolean!
   verifiedPhoneNumber: Boolean!
 }
-
-type Query {
-  user: User
-}

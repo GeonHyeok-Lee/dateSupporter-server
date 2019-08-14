@@ -9,6 +9,7 @@ import { IsEmail } from "class-validator";
 import Chat from "./Chat";
 import Message from "./Message";
 import Couple from "./Couple";
+import Verification from "./Verification";
 
 @Entity()
 class User extends BaseEntity {
@@ -61,6 +62,12 @@ class User extends BaseEntity {
 
   @OneToMany(type => Couple, couple => couple.acceptedUser)
   couplesAsAcceptedUser: Couple[];
+
+  @OneToMany(
+    type => Verification,
+    verification => verification.verificationUser
+  )
+  couplesAsVerificationUser: Couple[];
 
   @OneToMany(type => Message, message => message.user)
   messages: Message[];

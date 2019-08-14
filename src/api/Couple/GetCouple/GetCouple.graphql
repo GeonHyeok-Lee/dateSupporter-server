@@ -1,0 +1,9 @@
+type GetCoupleResponse {
+  ok: Boolean!
+  error: String
+  couple: Couple
+}
+
+type Query {
+  GetCouple(coupleId: Int!): GetCoupleResponse!
+}

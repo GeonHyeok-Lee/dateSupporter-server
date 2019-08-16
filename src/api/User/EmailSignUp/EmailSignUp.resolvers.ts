@@ -11,9 +11,9 @@ const resolvers: Resolvers = {
       _,
       args: EmailSignUpMutationArgs
     ): Promise<EmailSignUpResponse> => {
-      const { signUpEmail } = args;
+      const { email } = args;
       try {
-        const existingUser = await User.findOne({ signUpEmail });
+        const existingUser = await User.findOne({ signUpEmail: email });
         if (existingUser) {
           return {
             ok: false,
@@ -22,7 +22,7 @@ const resolvers: Resolvers = {
           };
         } else {
           const newUser = await User.create({
-            email: signUpEmail,
+            signUpEmail: email,
             ...args
           }).save();
           if (newUser.signUpEmail) {
@@ -32,7 +32,7 @@ const resolvers: Resolvers = {
             }).save();
             if (typeof newUser.name === "string") {
               await sendVerificationEmail(
-                signUpEmail,
+                email,
                 newUser.name,
                 emailVerification.key
               );

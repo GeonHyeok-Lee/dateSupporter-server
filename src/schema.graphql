@@ -10,6 +10,11 @@ type Chat {
   updatedAt: String!
 }
 
+type Subscription {
+  CoupleStatusSubscription: Couple
+  RequestCoupleSubscription: Couple
+}
+
 type GetCoupleResponse {
   ok: Boolean!
   error: String
@@ -39,16 +44,12 @@ type Mutation {
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
-  EmailSignUp(signUpEmail: String!, password: String!, name: String!): EmailSignUpResponse!
+  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
   FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
   GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
   KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
   NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
-}
-
-type Subscription {
-  RequestCoupleSubscription: Couple
 }
 
 type Couple {

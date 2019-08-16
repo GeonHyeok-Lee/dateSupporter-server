@@ -7,30 +7,41 @@ import {
   ManyToOne,
   Column,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany
 } from "typeorm";
 import User from "./User";
 import Chat from "./Chat";
+import Place from "./Place";
 
 @Entity()
 class Couple extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
+  @Column({ type: "text", nullable: true })
+  status: string;
+
   @OneToOne(type => Chat, chat => chat.couple, { nullable: true })
   @JoinColumn()
   chat: Chat;
 
-  @ManyToOne(type => User, user => user.couplesAsProposedUser)
-  proposedUser: User;
+  @Column({ type: "text", nullable: true })
+  searchPhoneNumber: string;
+
+  @ManyToOne(type => User, user => user.couplesAsRequestUser)
+  requestUser: User;
 
   @Column({ nullable: true })
-  proposedUserId: number;
+  requestUserId: number;
 
-  @ManyToOne(type => User, user => user.couplesAsAcceptedUser)
-  acceptedUser: User;
+  @ManyToOne(type => User, user => user.couplesAsAcceptUser)
+  acceptUser: User;
 
   @Column({ nullable: true })
-  acceptedUserId: number;
+  acceptUserId: number;
+
+  @OneToMany(type => Place, place => place.couple)
+  places: Place[];
 
   @CreateDateColumn() createdAt: string;
 

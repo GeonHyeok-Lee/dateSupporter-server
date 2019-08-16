@@ -13,14 +13,14 @@ import User from "./User";
 const PHONE = "PHONE";
 
 @Entity()
-class Verification extends BaseEntity {
+class PhoneVerification extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @Column({ type: "text", enum: [PHONE] })
   target: "PHONE";
 
   @Column({ type: "text" })
-  payload: string;
+  phoneNumber: string;
 
   @Column({ type: "text" })
   key: string;
@@ -34,11 +34,11 @@ class Verification extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: string;
 
-  @ManyToOne(type => User, user => user.couplesAsVerificationUser)
-  verificationUser: User;
+  @ManyToOne(type => User, user => user.couplesAsPhoneVerificationUser)
+  phoneVerificationUser: User;
 
   @Column({ nullable: true })
-  verificationUserId: number;
+  phoneVerificationUserId: number;
 
   @BeforeInsert()
   createKey(): void {
@@ -48,4 +48,4 @@ class Verification extends BaseEntity {
   }
 }
 
-export default Verification;
+export default PhoneVerification;

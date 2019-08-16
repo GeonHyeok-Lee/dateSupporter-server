@@ -1,0 +1,9 @@
+type EmailVerification {
+  id: Int!
+  target: String!
+  email: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String
+}

@@ -1,0 +1,19 @@
+type UpdateCoupleStatusResponse {
+  ok: Boolean!
+  error: String
+  coupleId: Int
+}
+
+enum StatusOptions {
+  ACCEPTED
+  CANCELED
+  FINISHED
+  REQUESTING
+}
+
+type Mutation {
+  UpdateCoupleStatus(
+    coupleId: Int!
+    status: StatusOptions!
+  ): UpdateCoupleStatusResponse!
+}

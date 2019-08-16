@@ -5,12 +5,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   OneToMany,
-  ManyToOne,
   Column,
   OneToOne
 } from "typeorm";
 import Message from "./Message";
-import User from "./User";
 import Couple from "./Couple";
 
 @Entity()
@@ -23,17 +21,17 @@ class Chat extends BaseEntity {
   @OneToMany(type => Message, message => message.chat, { nullable: true })
   messages: Message[];
 
-  @ManyToOne(type => User, user => user.chatsAsProposedUser)
-  proposedUser: User;
+  @Column({ nullable: true })
+  requestUserId: number;
 
   @Column({ nullable: true })
-  proposedUserId: number;
+  acceptUserId: number;
 
-  @ManyToOne(type => User, user => user.chatsAsAcceptedUser)
-  acceptedUser: User;
+  @Column({ type: "text", nullable: true })
+  requestUserName: string | null;
 
-  @Column({ nullable: true })
-  acceptedUserId: number;
+  @Column({ type: "text", nullable: true })
+  acceptUserName: string | null;
 
   @CreateDateColumn() createdAt: string;
 

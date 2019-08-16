@@ -6,9 +6,7 @@ type KakaoConnectResponse {
 
 type Mutation {
   KakaoConnect(
-    firstName: String
-    lastName: String
-    name: String
+    name: String!
     email: String!
     kakaoId: String!
   ): KakaoConnectResponse!

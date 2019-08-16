@@ -3,8 +3,8 @@ import {
   CompletePhoneVerificationResponse,
   CompletePhoneVerificationMutationArgs
 } from "@src/types/graph";
-import Verification from "@src/entities/Verification";
 import User from "@src/entities/User";
+import PhoneVerification from "@src/entities/PhoneVerification";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -16,10 +16,10 @@ const resolvers: Resolvers = {
       const { phoneNumber, key } = args;
       const reqUser: User = req.user;
       try {
-        const verification = await Verification.findOne({
-          payload: phoneNumber,
+        const verification = await PhoneVerification.findOne({
+          phoneNumber,
           key,
-          verificationUserId: reqUser.id
+          phoneVerificationUserId: reqUser.id
         });
         if (!verification) {
           return {

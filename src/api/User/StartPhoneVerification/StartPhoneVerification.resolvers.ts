@@ -3,9 +3,9 @@ import {
   StartPhoneVerificationMutationArgs,
   StartPhoneVerificationResponse
 } from "@src/types/graph";
-import Verification from "@src/entities/Verification";
 import { sendVerificationSMS } from "@src/utils/sendSMS";
 import User from "@src/entities/User";
+import PhoneVerification from "@src/entities/PhoneVerification";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -17,18 +17,21 @@ const resolvers: Resolvers = {
       const { phoneNumber } = args;
       const user: User = req.user;
       try {
-        const existingVerification = await Verification.findOne({
-          payload: phoneNumber
+        const existingVerification = await PhoneVerification.findOne({
+          phoneNumber
         });
         if (existingVerification) {
           existingVerification.remove();
         }
-        const newVerification = await Verification.create({
-          payload: phoneNumber,
+        const newVerification = await PhoneVerification.create({
+          phoneNumber,
           target: "PHONE",
-          verificationUserId: user.id
+          phoneVerificationUserId: user.id
         }).save();
-        await sendVerificationSMS(newVerification.payload, newVerification.key);
+        await sendVerificationSMS(
+          newVerification.phoneNumber,
+          newVerification.key
+        );
         return {
           ok: true,
           error: null

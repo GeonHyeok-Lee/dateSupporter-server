@@ -5,12 +5,15 @@ type User {
   kakaoId: String!
   naverId: String!
   email: String!
+  password: String!
+  signUpEmail: String!
+  verifiedEmail: Boolean!
   name: String!
   firstName: String!
   lastName: String!
   fullName: String!
   phoneNumber: String!
-  isProposed: Boolean!
+  isRequested: Boolean!
   isAccepted: Boolean!
   verifiedPhoneNumber: Boolean!
 }

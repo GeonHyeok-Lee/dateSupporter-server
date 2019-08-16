@@ -1,10 +1,11 @@
 type Chat {
   id: Int!
   messages: [Message]
-  acceptedUser: User!
-  acceptedId: Int!
-  proposedUser: User!
-  proposedId: Int!
+  couple: Couple!
+  requestUserId: Int!
+  acceptUserId: Int!
+  requestUserName: String!
+  acceptUserName: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -17,6 +18,13 @@ type GetCoupleResponse {
 
 type Query {
   GetCouple(coupleId: Int!): GetCoupleResponse!
+  GetRequestCouple: GetRequestCoupleResponse!
+}
+
+type GetRequestCoupleResponse {
+  ok: Boolean!
+  error: String
+  couple: Couple
 }
 
 type RequestCoupleResponse {
@@ -25,24 +33,58 @@ type RequestCoupleResponse {
 }
 
 type Mutation {
-  RequestCouple: RequestCoupleResponse!
+  RequestCouple(phoneNumber: String!): RequestCoupleResponse!
+  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
+  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
+  EmailSignUp(signUpEmail: String!, password: String!, name: String!): EmailSignUpResponse!
   FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
   GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
-  KakaoConnect(firstName: String, lastName: String, name: String, email: String!, kakaoId: String!): KakaoConnectResponse!
+  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
   NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
 
+type Subscription {
+  RequestCoupleSubscription: Couple
+}
+
 type Couple {
   id: Int!
+  status: String!
   chat: Chat
-  proposedUser: User
-  proposedUserId: Int!
-  acceptedUser: User
-  acceptedUserId: Int!
+  searchPhoneNumber: String!
+  requestUser: User
+  requestUserId: Int!
+  acceptUser: User
+  acceptUserId: Int!
   createdAt: String!
   updatedAt: String!
+}
+
+type UpdateCoupleStatusResponse {
+  ok: Boolean!
+  error: String
+  coupleId: Int
+}
+
+enum StatusOptions {
+  ACCEPTED
+  CANCELED
+  FINISHED
+  REQUESTING
+}
+
+type EmailVerification {
+  id: Int!
+  target: String!
+  email: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String
 }
 
 type Message {
@@ -54,9 +96,55 @@ type Message {
   updatedAt: String!
 }
 
+type PhoneVerification {
+  id: Int!
+  target: String!
+  phoneNumber: String!
+  key: String!
+  verified: Boolean!
+  createdAt: String!
+  updatedAt: String!
+  phoneVerificationUser: User
+  phoneVerificationUserId: Int!
+}
+
+type AddPlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
+type Place {
+  id: Int!
+  name: String!
+  lat: Float!
+  lng: Float!
+  address: String!
+  coupleId: Int!
+  couple: Couple!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type CompleteEmailVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
 type CompletePhoneVerificationResponse {
   ok: Boolean!
   error: String
+}
+
+type EmailSignInResponse {
+  ok: Boolean!
+  error: String
+  token: String
+}
+
+type EmailSignUpResponse {
+  ok: Boolean!
+  error: String
+  token: String
 }
 
 type FacebookConnectResponse {
@@ -90,12 +178,15 @@ type User {
   kakaoId: String!
   naverId: String!
   email: String!
+  password: String!
+  signUpEmail: String!
+  verifiedEmail: Boolean!
   name: String!
   firstName: String!
   lastName: String!
   fullName: String!
   phoneNumber: String!
-  isProposed: Boolean!
+  isRequested: Boolean!
   isAccepted: Boolean!
   verifiedPhoneNumber: Boolean!
 }
@@ -103,16 +194,4 @@ type User {
 type StartPhoneVerificationResponse {
   ok: Boolean!
   error: String
-}
-
-type Verification {
-  id: Int!
-  target: String!
-  payload: String!
-  key: String!
-  verified: Boolean!
-  createdAt: String!
-  updatedAt: String!
-  verificationUser: User
-  verificationUserId: Int!
 }

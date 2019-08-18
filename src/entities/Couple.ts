@@ -28,19 +28,21 @@ class Couple extends BaseEntity {
   @Column({ type: "text", nullable: true })
   searchPhoneNumber: string;
 
-  @ManyToOne(type => User, user => user.couplesAsRequestUser)
+  @ManyToOne(type => User, user => user.couplesAsRequestUser, {
+    nullable: true
+  })
   requestUser: User;
 
   @Column({ nullable: true })
   requestUserId: number;
 
-  @ManyToOne(type => User, user => user.couplesAsAcceptUser)
+  @ManyToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
   acceptUser: User;
 
   @Column({ nullable: true })
   acceptUserId: number;
 
-  @OneToMany(type => Place, place => place.couple)
+  @OneToMany(type => Place, place => place.couple, { nullable: true })
   places: Place[];
 
   @CreateDateColumn() createdAt: string;

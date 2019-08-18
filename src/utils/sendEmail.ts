@@ -3,12 +3,12 @@ import Mailgun from "mailgun-js";
 const mailGunClient = new Mailgun({
   apiKey: process.env.MAILGUN_API_KEY,
   publicApiKey: process.env.MAILGUN_PUBLIC_API_KEY,
-  domain: "sandbox94227a1a9e6e4bb99b6c49c5d3f6459b.mailgun.org"
+  domain: "sandboxbd32f8eed8f84bab92c7b23be9913cf7.mailgun.org"
 });
 
 const sendEmail = (to: string, subject: string, html: string) => {
   const emailData = {
-    from: "dlrjsgur1992@gmail.com",
+    from: "dlrjsgur1992@naver.com",
     to,
     subject,
     html

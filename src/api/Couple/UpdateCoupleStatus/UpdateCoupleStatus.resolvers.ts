@@ -51,7 +51,7 @@ const resolvers: Resolvers = {
                   id: args.coupleId,
                   acceptUser: user
                 },
-                { relations: ["passenger", "driver"] }
+                { relations: ["requestUser", "acceptUser"] }
               );
               if (args.status === "FINISHED") {
                 user.isAccepted = false;

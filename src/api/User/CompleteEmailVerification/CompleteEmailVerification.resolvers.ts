@@ -24,6 +24,8 @@ const resolvers: Resolvers = {
               email: user.signUpEmail
             });
             if (verification) {
+              verification.verified = true;
+              verification.save();
               user.verifiedEmail = true;
               user.save();
               return {

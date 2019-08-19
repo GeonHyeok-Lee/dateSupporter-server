@@ -16,6 +16,9 @@ class Place extends BaseEntity {
   @Column({ type: "text" })
   name: string;
 
+  @Column({ type: "text" })
+  contents: string;
+
   @Column({ type: "double precision", default: 0 })
   lat: number;
 

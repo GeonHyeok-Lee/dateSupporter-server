@@ -15,6 +15,7 @@ const resolvers: Resolvers = {
         args: RequestCoupleMutationArgs,
         { req, pubSub }
       ): Promise<RequestCoupleResponse> => {
+        console.log(args);
         const { phoneNumber } = args;
         const user: User = req.user;
         if (!user.isRequested && !user.isAccepted) {
@@ -27,7 +28,7 @@ const resolvers: Resolvers = {
             pubSub.publish("coupleRequest", {
               RequestCoupleSubscription: couple
             });
-            user.isRequested = true;
+            // user.isRequested = true;
             user.save();
             return {
               ok: true,

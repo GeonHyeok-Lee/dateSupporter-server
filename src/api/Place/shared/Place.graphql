@@ -1,11 +1,12 @@
 type Place {
   id: Int!
   name: String!
+  contents: String!
   lat: Float!
   lng: Float!
   address: String!
-  coupleId: Int!
   couple: Couple!
+  coupleId: Int!
   createdAt: String!
   updatedAt: String!
 }

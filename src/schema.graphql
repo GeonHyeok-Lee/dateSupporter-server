@@ -23,13 +23,7 @@ type GetCoupleResponse {
 
 type Query {
   GetCouple(coupleId: Int!): GetCoupleResponse
-  GetRequestCouple: GetRequestCoupleResponse!
-}
-
-type GetRequestCoupleResponse {
-  ok: Boolean!
-  error: String
-  couple: Couple
+  GetPlace(placeId: Int!): GetPlaceResponse
 }
 
 type RequestCoupleResponse {
@@ -40,7 +34,7 @@ type RequestCoupleResponse {
 type Mutation {
   RequestCouple(phoneNumber: String!): RequestCoupleResponse!
   UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
-  AddPlace(name: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
@@ -114,9 +108,16 @@ type AddPlaceResponse {
   error: String
 }
 
+type GetPlaceResponse {
+  ok: Boolean!
+  error: String
+  place: Place
+}
+
 type Place {
   id: Int!
   name: String!
+  contents: String!
   lat: Float!
   lng: Float!
   address: String!

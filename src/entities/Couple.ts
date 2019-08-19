@@ -13,13 +13,18 @@ import {
 import User from "./User";
 import Chat from "./Chat";
 import Place from "./Place";
+import { coupleStatus } from "@src/types/types";
 
 @Entity()
 class Couple extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column({ type: "text", nullable: true })
-  status: string;
+  @Column({
+    type: "text",
+    enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING"],
+    default: "REQUESTING"
+  })
+  status: coupleStatus;
 
   @OneToOne(type => Chat, chat => chat.couple, { nullable: true })
   @JoinColumn()

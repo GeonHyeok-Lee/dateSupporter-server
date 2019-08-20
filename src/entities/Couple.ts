@@ -50,6 +50,12 @@ class Couple extends BaseEntity {
   @OneToMany(type => Place, place => place.couple, { nullable: true })
   places: Place[];
 
+  // @OneToMany(type => Message, message => message.requestUser)
+  // messagesAsRequestUser: Message[];
+
+  // @OneToMany(type => Message, message => message.acceptUser)
+  // messagesAsAcceptUser: Message[];
+
   @CreateDateColumn() createdAt: string;
 
   @UpdateDateColumn() updatedAt: string;

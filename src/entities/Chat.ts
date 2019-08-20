@@ -27,12 +27,6 @@ class Chat extends BaseEntity {
   @Column({ nullable: true })
   acceptUserId: number;
 
-  @Column({ type: "text", nullable: true })
-  requestUserName: string | null;
-
-  @Column({ type: "text", nullable: true })
-  acceptUserName: string | null;
-
   @CreateDateColumn() createdAt: string;
 
   @UpdateDateColumn() updatedAt: string;

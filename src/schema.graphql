@@ -2,10 +2,19 @@ type Chat {
   id: Int!
   messages: [Message]
   couple: Couple!
-  requestUserId: Int!
   acceptUserId: Int!
-  requestUserName: String!
+  requestUserId: Int!
   acceptUserName: String!
+  requestUserName: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Message {
+  id: Int!
+  text: String!
+  chat: Chat!
+  chatId: Int!
   createdAt: String!
   updatedAt: String!
 }
@@ -35,6 +44,8 @@ type Mutation {
   RequestCouple(phoneNumber: String!): RequestCoupleResponse!
   UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
   AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  DeletePlace(placeId: Int!): DeletePlaceResponse!
+  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
@@ -82,15 +93,6 @@ type EmailVerification {
   updatedAt: String
 }
 
-type Message {
-  id: Int!
-  text: String!
-  chat: Chat!
-  chatId: Int!
-  createdAt: String!
-  updatedAt: String!
-}
-
 type PhoneVerification {
   id: Int!
   target: String!
@@ -108,6 +110,16 @@ type AddPlaceResponse {
   error: String
 }
 
+type DeletePlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
+type EditPlaceResponse {
+  ok: Boolean!
+  error: String
+}
+
 type GetPlaceResponse {
   ok: Boolean!
   error: String
@@ -121,8 +133,8 @@ type Place {
   lat: Float!
   lng: Float!
   address: String!
-  coupleId: Int!
   couple: Couple!
+  coupleId: Int!
   createdAt: String!
   updatedAt: String!
 }

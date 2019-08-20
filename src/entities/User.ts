@@ -8,7 +8,6 @@ import {
   BeforeUpdate
 } from "typeorm";
 import { IsEmail } from "class-validator";
-import Message from "./Message";
 import Couple from "./Couple";
 import PhoneVerification from "./PhoneVerification";
 import bcrypt from "bcrypt";
@@ -77,9 +76,6 @@ class User extends BaseEntity {
     phoneVerification => phoneVerification.phoneVerificationUser
   )
   couplesAsPhoneVerificationUser: PhoneVerification[];
-
-  @OneToMany(type => Message, message => message.user)
-  messages: Message[];
 
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`;

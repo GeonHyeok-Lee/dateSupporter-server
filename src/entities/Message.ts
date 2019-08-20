@@ -8,7 +8,6 @@ import {
   UpdateDateColumn
 } from "typeorm";
 import Chat from "./Chat";
-import User from "./User";
 
 @Entity()
 class Message extends BaseEntity {
@@ -24,11 +23,21 @@ class Message extends BaseEntity {
   @Column({ nullable: true })
   chatId: number;
 
-  @ManyToOne(type => User, user => user.messages)
-  user: User;
+  // @ManyToOne(type => Couple, couple => couple.messagesAsRequestUser, {
+  //   nullable: true
+  // })
+  // requestUser: Couple;
 
-  @Column({ nullable: true })
-  userId: number;
+  // @Column({ nullable: true })
+  // requestUserId: number;
+
+  // @ManyToOne(type => Couple, couple => couple.messagesAsAcceptUser, {
+  //   nullable: true
+  // })
+  // acceptUser: Couple;
+
+  // @Column({ nullable: true })
+  // acceptUserId: number;
 
   @CreateDateColumn()
   createdAt: string;

@@ -4,8 +4,6 @@ type Chat {
   couple: Couple!
   acceptUserId: Int!
   requestUserId: Int!
-  acceptUserName: String!
-  requestUserName: String!
   createdAt: String!
   updatedAt: String!
 }

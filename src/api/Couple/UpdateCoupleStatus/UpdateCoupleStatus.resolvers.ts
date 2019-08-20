@@ -38,9 +38,7 @@ const resolvers: Resolvers = {
                 const chat: Chat = await Chat.create({
                   couple,
                   requestUserId: requestUser.id,
-                  acceptUserId: acceptUser.id,
-                  requestUserName: requestUser.name,
-                  acceptUserName: acceptUser.name
+                  acceptUserId: acceptUser.id
                 }).save();
                 couple.chat = chat;
                 await couple.save();

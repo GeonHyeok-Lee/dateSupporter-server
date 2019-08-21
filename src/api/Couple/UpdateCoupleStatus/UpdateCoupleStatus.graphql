@@ -1,7 +1,6 @@
 type UpdateCoupleStatusResponse {
   ok: Boolean!
   error: String
-  coupleId: Int
 }
 
 enum StatusOptions {

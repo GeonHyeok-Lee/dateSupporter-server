@@ -14,7 +14,7 @@ const resolvers: Resolvers = {
         { req, pubSub }
       ): Promise<AddPlaceResponse> => {
         const user: User = req.user;
-        const couple: Couple = req.couple;
+        const couple = await Couple.findOne({ id: args.coupleId });
         try {
           const place = await Place.create({
             ...args,

@@ -5,6 +5,7 @@ type AddPlaceResponse {
 
 type Mutation {
   AddPlace(
+    coupleId: Int!
     name: String!
     contents: String!
     lat: Float!

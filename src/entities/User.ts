@@ -79,7 +79,13 @@ class User extends BaseEntity {
   couplesAsPhoneVerificationUser: PhoneVerification[];
 
   get fullName(): string {
-    return `${this.firstName} ${this.lastName}`;
+    if (this.firstName && this.lastName) {
+      return `${this.firstName} ${this.lastName}`;
+    } else if (this.name) {
+      return `${this.name}`;
+    } else {
+      return "undefined";
+    }
   }
 
   public comparePassword(password: string): Promise<boolean> {

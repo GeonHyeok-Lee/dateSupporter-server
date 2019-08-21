@@ -16,8 +16,8 @@ const resolvers = {
             const couple = await Couple.findOne({ id: coupleId });
             if (couple) {
               return (
-                couple.acceptUser.id === user.id ||
-                couple.requestUser.id === user.id
+                couple.acceptUserId === user.id ||
+                couple.requestUserId === user.id
               );
             } else {
               return false;
@@ -35,30 +35,6 @@ const resolvers = {
           const user: User = context.currentUser;
           const {
             EditPlaceSubscription: { coupleId }
-          } = payload;
-          try {
-            const couple = await Couple.findOne({ id: coupleId });
-            if (couple) {
-              return (
-                couple.acceptUser.id === user.id ||
-                couple.requestUser.id === user.id
-              );
-            } else {
-              return false;
-            }
-          } catch (error) {
-            return false;
-          }
-        }
-      )
-    },
-    DeletePlaceSubscription: {
-      subscribe: withFilter(
-        (_, __, { pubSub }) => pubSub.asyncIterator("deletePlace"),
-        async (payload, _, { context }) => {
-          const user: User = context.currentUser;
-          const {
-            DeletePlaceSubscription: { coupleId }
           } = payload;
           try {
             const couple = await Couple.findOne({ id: coupleId });

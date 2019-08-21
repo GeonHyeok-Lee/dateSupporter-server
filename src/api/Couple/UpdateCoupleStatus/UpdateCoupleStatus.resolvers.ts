@@ -7,6 +7,8 @@ import {
   UpdateCoupleStatusMutationArgs,
   UpdateCoupleStatusResponse
 } from "@src/types/graph";
+import Place from "@src/entities/Place";
+import Message from "@src/entities/Message";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -18,7 +20,8 @@ const resolvers: Resolvers = {
       ): Promise<UpdateCoupleStatusResponse> => {
         const { coupleId } = args;
         const user: User = req.user;
-        if (!user.isRequested && !user.isAccepted) {
+        // 임시로 바꿔놓은 것 "!" 빼세요..
+        if (!user.isRequested || !user.isAccepted) {
           try {
             let couple: any;
             if (args.status === "ACCEPTED") {
@@ -52,13 +55,33 @@ const resolvers: Resolvers = {
                 { relations: ["requestUser", "acceptUser"] }
               );
               if (args.status === "FINISHED") {
+                let messages;
+                const requestUser: User = couple.requestUser;
+                const chat = await Chat.findOne({ coupleId: couple.id });
+                const places = await Place.find({ coupleId: couple.id });
+                if (chat) {
+                  messages = await Message.find({ chatId: chat.id });
+                }
+                if (places) {
+                  await places.map(place => place.remove());
+                }
+                if (messages) {
+                  await messages.map(message => message.remove());
+                }
+                if (chat) {
+                  await chat.remove();
+                }
+                await couple.remove();
                 user.isAccepted = false;
                 user.isRequested = false;
-                await user.save();
-                const requestUser: User = couple.requestUser;
                 requestUser.isAccepted = false;
                 requestUser.isRequested = false;
+                await user.save();
                 await requestUser.save();
+                return {
+                  ok: true,
+                  error: null
+                };
               }
             }
             if (couple) {
@@ -69,28 +92,24 @@ const resolvers: Resolvers = {
               });
               return {
                 ok: true,
-                error: null,
-                coupleId: couple.id
+                error: null
               };
             } else {
               return {
                 ok: false,
-                error: "커플 정보를 갱신 할 수 없어요..",
-                coupleId: null
+                error: "커플 정보를 갱신 할 수 없어요.."
               };
             }
           } catch (error) {
             return {
               ok: false,
-              error: error.message,
-              coupleId: null
+              error: error.message
             };
           }
         } else {
           return {
             ok: false,
-            error: "이미 커플이에요..",
-            coupleId: null
+            error: "이미 커플이에요.."
           };
         }
       }

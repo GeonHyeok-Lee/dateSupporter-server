@@ -32,14 +32,20 @@ class Couple extends BaseEntity {
   @JoinColumn()
   requestUser: User;
 
+  @Column()
+  requestUserId: number;
+
   @OneToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
   @JoinColumn()
   acceptUser: User;
 
-  @Column({ type: "text" })
+  @Column({ nullable: true })
+  acceptUserId: number;
+
+  @Column({ type: "text", nullable: true })
   requestedPhoneNumber: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   acceptedPhoneNumber: string;
 
   @OneToMany(type => Place, place => place.couple, { nullable: true })

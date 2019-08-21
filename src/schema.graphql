@@ -1,3 +1,12 @@
+type Subscription {
+  MessageSubscription: Message
+  CoupleStatusSubscription: Couple
+  RequestCoupleSubscription: Couple
+  AddPlaceSubscription: Place
+  EditPlaceSubscription: Place
+  DeletePlaceSubscription: Place
+}
+
 type SendMessageResponse {
   ok: Boolean!
   error: String
@@ -8,7 +17,7 @@ type Mutation {
   SendMessage(text: String!, chatId: Int!): SendMessageResponse!
   RequestCouple(phoneNumber: String!): RequestCoupleResponse!
   UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
-  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   DeletePlace(placeId: Int!): DeletePlaceResponse!
   EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
@@ -26,6 +35,7 @@ type Chat {
   id: Int!
   messages: [Message]
   couple: Couple!
+  coupleId: Int!
   acceptUserId: Int!
   requestUserId: Int!
   createdAt: String!
@@ -41,11 +51,6 @@ type Message {
   acceptUserName: String!
   createdAt: String!
   updatedAt: String!
-}
-
-type Subscription {
-  CoupleStatusSubscription: Couple
-  RequestCoupleSubscription: Couple
 }
 
 type GetCoupleResponse {
@@ -81,7 +86,6 @@ type Couple {
 type UpdateCoupleStatusResponse {
   ok: Boolean!
   error: String
-  coupleId: Int
 }
 
 enum StatusOptions {

@@ -31,10 +31,10 @@ class Place extends BaseEntity {
   @ManyToOne(type => Couple, couple => couple.places)
   couple: Couple;
 
-  @Column({ nullable: true })
+  @Column()
   coupleId: number;
 
-  @Column({ nullable: true })
+  @Column()
   addUserId: number;
 
   @CreateDateColumn() createdAt: string;

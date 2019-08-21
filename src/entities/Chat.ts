@@ -23,6 +23,9 @@ class Chat extends BaseEntity {
   @JoinColumn()
   couple: Couple;
 
+  @Column()
+  coupleId: number;
+
   @Column({ nullable: true })
   requestUserId: number;
 

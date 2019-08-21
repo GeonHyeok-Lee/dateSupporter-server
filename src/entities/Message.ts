@@ -23,21 +23,11 @@ class Message extends BaseEntity {
   @Column({ nullable: true })
   chatId: number;
 
-  // @ManyToOne(type => Couple, couple => couple.messagesAsRequestUser, {
-  //   nullable: true
-  // })
-  // requestUser: Couple;
+  @Column({ nullable: true })
+  requestUserName: string | null;
 
-  // @Column({ nullable: true })
-  // requestUserId: number;
-
-  // @ManyToOne(type => Couple, couple => couple.messagesAsAcceptUser, {
-  //   nullable: true
-  // })
-  // acceptUser: Couple;
-
-  // @Column({ nullable: true })
-  // acceptUserId: number;
+  @Column({ nullable: true })
+  acceptUserName: string | null;
 
   @CreateDateColumn()
   createdAt: string;

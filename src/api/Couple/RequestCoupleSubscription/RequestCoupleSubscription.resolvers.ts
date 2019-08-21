@@ -9,10 +9,10 @@ const resolvers = {
         (payload, _, { context }) => {
           const user: User = context.currentUser;
           const {
-            RequestCoupleSubscription: { searchPhoneNumber }
+            RequestCoupleSubscription: { acceptedPhoneNumber }
           } = payload;
           const { phoneNumber } = user;
-          return searchPhoneNumber === phoneNumber;
+          return acceptedPhoneNumber === phoneNumber;
         }
       )
     }

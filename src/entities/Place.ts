@@ -34,6 +34,9 @@ class Place extends BaseEntity {
   @Column({ nullable: true })
   coupleId: number;
 
+  @Column({ nullable: true })
+  addUserId: number;
+
   @CreateDateColumn() createdAt: string;
 
   @UpdateDateColumn() updatedAt: string;

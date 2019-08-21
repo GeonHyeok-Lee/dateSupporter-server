@@ -1,1 +1,1 @@
-export type coupleStatus = "ACCEPTED" | "FINISHED" | "CANCELED" | "REQUESTING";
+export type CoupleStatus = "ACCEPTED" | "FINISHED" | "CANCELED" | "REQUESTING";

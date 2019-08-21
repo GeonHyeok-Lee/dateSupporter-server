@@ -3,10 +3,8 @@ type Message {
   text: String!
   chat: Chat!
   chatId: Int!
-  # requestUser: Couple
-  # requestUserId: Int!
-  # acceptUser: Couple
-  # acceptUserId: Int!
+  requestUserName: String!
+  acceptUserName: String!
   createdAt: String!
   updatedAt: String!
 }

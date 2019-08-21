@@ -4,7 +4,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
   Column,
   OneToOne,
   JoinColumn,
@@ -13,48 +12,38 @@ import {
 import User from "./User";
 import Chat from "./Chat";
 import Place from "./Place";
-import { coupleStatus } from "@src/types/types";
+import { CoupleStatus } from "@src/types/types";
 
 @Entity()
 class Couple extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
   @Column({
-    type: "text",
+    type: "enum",
     enum: ["ACCEPTED", "FINISHED", "CANCELED", "REQUESTING"],
     default: "REQUESTING"
   })
-  status: coupleStatus;
+  status: CoupleStatus;
 
   @OneToOne(type => Chat, chat => chat.couple, { nullable: true })
-  @JoinColumn()
   chat: Chat;
 
-  @Column({ type: "text", nullable: true })
-  searchPhoneNumber: string;
-
-  @ManyToOne(type => User, user => user.couplesAsRequestUser, {
-    nullable: true
-  })
+  @OneToOne(type => User, user => user.couplesAsRequestUser, { nullable: true })
+  @JoinColumn()
   requestUser: User;
 
-  @Column({ nullable: true })
-  requestUserId: number;
-
-  @ManyToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
+  @OneToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
+  @JoinColumn()
   acceptUser: User;
 
-  @Column({ nullable: true })
-  acceptUserId: number;
+  @Column({ type: "text" })
+  requestedPhoneNumber: string;
+
+  @Column({ type: "text" })
+  acceptedPhoneNumber: string;
 
   @OneToMany(type => Place, place => place.couple, { nullable: true })
   places: Place[];
-
-  // @OneToMany(type => Message, message => message.requestUser)
-  // messagesAsRequestUser: Message[];
-
-  // @OneToMany(type => Message, message => message.acceptUser)
-  // messagesAsAcceptUser: Message[];
 
   @CreateDateColumn() createdAt: string;
 

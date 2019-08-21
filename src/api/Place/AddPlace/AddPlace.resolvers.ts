@@ -3,6 +3,7 @@ import privateResolver from "@src/utils/privateResolver";
 import { AddPlaceMutationArgs, AddPlaceResponse } from "@src/types/graph";
 import Couple from "@src/entities/Couple";
 import Place from "@src/entities/Place";
+import User from "@src/entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -10,11 +11,19 @@ const resolvers: Resolvers = {
       async (
         _,
         args: AddPlaceMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<AddPlaceResponse> => {
+        const user: User = req.user;
         const couple: Couple = req.couple;
         try {
-          await Place.create({ ...args, couple }).save();
+          const place = await Place.create({
+            ...args,
+            addUserId: user.id,
+            couple
+          }).save();
+          pubSub.publish("addPlace", {
+            AddPlaceSubscription: place
+          });
           return {
             ok: true,
             error: null

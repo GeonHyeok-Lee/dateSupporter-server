@@ -75,7 +75,7 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "Can not update couple",
+                error: "커플 정보를 갱신 할 수 없어요..",
                 coupleId: null
               };
             }
@@ -89,7 +89,7 @@ const resolvers: Resolvers = {
         } else {
           return {
             ok: false,
-            error: "You are already couple",
+            error: "이미 커플이에요..",
             coupleId: null
           };
         }

@@ -1,0 +1,5 @@
+type Subscription {
+  AddPlaceSubscription: Place
+  EditPlaceSubscription: Place
+  DeletePlaceSubscription: Place
+}

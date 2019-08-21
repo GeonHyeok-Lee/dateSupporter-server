@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
       async (
         _,
         args: DeletePlaceMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<DeletePlaceResponse> => {
         const couple: Couple = req.couple;
         try {
@@ -18,6 +18,7 @@ const resolvers: Resolvers = {
           if (place) {
             if (place.coupleId === couple.id) {
               place.remove();
+              pubSub.publish("deletePlace");
               return {
                 ok: true,
                 error: null

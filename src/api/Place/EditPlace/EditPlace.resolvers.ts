@@ -11,18 +11,24 @@ const resolvers: Resolvers = {
       async (
         _,
         args: EditPlaceMutationArgs,
-        { req }
+        { req, pubSub }
       ): Promise<EditPlaceResponse> => {
         const couple: Couple = req.couple;
         try {
-          const place: any = await Place.findOne({ id: args.placeId });
+          const place = await Place.findOne({ id: args.placeId });
           if (place) {
             if (place.coupleId === couple.id) {
               const notNull: any = cleanNullArgs(args);
               if (notNull.placeId !== null) {
                 delete notNull.placeId;
               }
-              await Place.update({ id: args.placeId }, { ...notNull });
+              const updatedPlace = await Place.update(
+                { id: args.placeId },
+                { ...notNull }
+              );
+              pubSub.publish("editPlace", {
+                EditPlaceSubscription: updatedPlace
+              });
               return {
                 ok: true,
                 error: null

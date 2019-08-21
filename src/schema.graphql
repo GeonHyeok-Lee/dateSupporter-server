@@ -1,11 +1,33 @@
+type SendMessageResponse {
+  ok: Boolean!
+  error: String
+  message: Message
+}
+
+type Mutation {
+  SendMessage(text: String!, chatId: Int!): SendMessageResponse!
+  RequestCouple(phoneNumber: String!): RequestCoupleResponse!
+  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
+  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
+  DeletePlace(placeId: Int!): DeletePlaceResponse!
+  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
+  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
+  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
+  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
+  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
+  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
+  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
+  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
+  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
+  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
+}
+
 type Chat {
   id: Int!
   messages: [Message]
   couple: Couple!
   acceptUserId: Int!
   requestUserId: Int!
-  acceptUserName: String!
-  requestUserName: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -15,6 +37,8 @@ type Message {
   text: String!
   chat: Chat!
   chatId: Int!
+  requestUserName: String!
+  acceptUserName: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -40,28 +64,12 @@ type RequestCoupleResponse {
   error: String
 }
 
-type Mutation {
-  RequestCouple(phoneNumber: String!): RequestCoupleResponse!
-  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
-  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  DeletePlace(placeId: Int!): DeletePlaceResponse!
-  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
-  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
-  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
-  EmailSignIn(email: String!, password: String!): EmailSignInResponse!
-  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
-  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
-  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
-  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
-  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
-  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
-}
-
 type Couple {
   id: Int!
   status: String!
   chat: Chat
-  searchPhoneNumber: String!
+  requestedPhoneNumber: String!
+  acceptedPhoneNumber: String!
   requestUser: User
   requestUserId: Int!
   acceptUser: User

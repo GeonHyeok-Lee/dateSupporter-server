@@ -15,14 +15,14 @@ const resolvers: Resolvers = {
         args: RequestCoupleMutationArgs,
         { req, pubSub }
       ): Promise<RequestCoupleResponse> => {
-        console.log(args);
         const { phoneNumber } = args;
         const user: User = req.user;
         if (!user.isRequested && !user.isAccepted) {
           try {
             const couple = await Couple.create({
               ...args,
-              searchPhoneNumber: phoneNumber,
+              requestedPhoneNumber: user.phoneNumber,
+              acceptedPhoneNumber: phoneNumber,
               requestUser: user
             }).save();
             pubSub.publish("coupleRequest", {

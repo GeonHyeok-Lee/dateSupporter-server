@@ -2,7 +2,8 @@ type Couple {
   id: Int!
   status: String!
   chat: Chat
-  searchPhoneNumber: String!
+  requestedPhoneNumber: String!
+  acceptedPhoneNumber: String!
   requestUser: User
   requestUserId: Int!
   acceptUser: User

@@ -5,7 +5,8 @@ import {
   Column,
   OneToMany,
   BeforeInsert,
-  BeforeUpdate
+  BeforeUpdate,
+  OneToOne
 } from "typeorm";
 import { IsEmail } from "class-validator";
 import Couple from "./Couple";
@@ -65,11 +66,11 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isAccepted: boolean;
 
-  @OneToMany(type => Couple, couple => couple.requestUser)
-  couplesAsRequestUser: Couple[];
+  @OneToOne(type => Couple, couple => couple.requestUser)
+  couplesAsRequestUser: Couple;
 
-  @OneToMany(type => Couple, couple => couple.acceptUser)
-  couplesAsAcceptUser: Couple[];
+  @OneToOne(type => Couple, couple => couple.acceptUser)
+  couplesAsAcceptUser: Couple;
 
   @OneToMany(
     type => PhoneVerification,

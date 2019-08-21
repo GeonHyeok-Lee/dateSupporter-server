@@ -1,4 +1,4 @@
-export const typeDefs = ["type Chat {\n  id: Int!\n  messages: [Message]\n  couple: Couple!\n  acceptUserId: Int!\n  requestUserId: Int!\n  acceptUserName: String!\n  requestUserName: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Subscription {\n  CoupleStatusSubscription: Couple\n  RequestCoupleSubscription: Couple\n}\n\ntype GetCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype Query {\n  GetCouple(coupleId: Int!): GetCoupleResponse\n  GetPlace(placeId: Int!): GetPlaceResponse\n}\n\ntype RequestCoupleResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Mutation {\n  RequestCouple(phoneNumber: String!): RequestCoupleResponse!\n  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!\n  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!\n  DeletePlace(placeId: Int!): DeletePlaceResponse!\n  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!\n  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!\n  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!\n  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype Couple {\n  id: Int!\n  status: String!\n  chat: Chat\n  searchPhoneNumber: String!\n  requestUser: User\n  requestUserId: Int!\n  acceptUser: User\n  acceptUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype UpdateCoupleStatusResponse {\n  ok: Boolean!\n  error: String\n  coupleId: Int\n}\n\nenum StatusOptions {\n  ACCEPTED\n  CANCELED\n  FINISHED\n  REQUESTING\n}\n\ntype EmailVerification {\n  id: Int!\n  target: String!\n  email: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PhoneVerification {\n  id: Int!\n  target: String!\n  phoneNumber: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String!\n  phoneVerificationUser: User\n  phoneVerificationUserId: Int!\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype DeletePlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype GetPlaceResponse {\n  ok: Boolean!\n  error: String\n  place: Place\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  contents: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  couple: Couple!\n  coupleId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype KakaoConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype NaverConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  fbId: String!\n  googleId: String!\n  kakaoId: String!\n  naverId: String!\n  email: String!\n  password: String!\n  signUpEmail: String!\n  verifiedEmail: Boolean!\n  name: String!\n  firstName: String!\n  lastName: String!\n  fullName: String!\n  phoneNumber: String!\n  isRequested: Boolean!\n  isAccepted: Boolean!\n  verifiedPhoneNumber: Boolean!\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n"];
+export const typeDefs = ["type SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Mutation {\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  RequestCouple(phoneNumber: String!): RequestCoupleResponse!\n  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!\n  AddPlace(name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!\n  DeletePlace(placeId: Int!): DeletePlaceResponse!\n  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!\n  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!\n  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!\n  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  couple: Couple!\n  acceptUserId: Int!\n  requestUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int!\n  requestUserName: String!\n  acceptUserName: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Subscription {\n  CoupleStatusSubscription: Couple\n  RequestCoupleSubscription: Couple\n}\n\ntype GetCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype Query {\n  GetCouple(coupleId: Int!): GetCoupleResponse\n  GetPlace(placeId: Int!): GetPlaceResponse\n}\n\ntype RequestCoupleResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype Couple {\n  id: Int!\n  status: String!\n  chat: Chat\n  requestedPhoneNumber: String!\n  acceptedPhoneNumber: String!\n  requestUser: User\n  requestUserId: Int!\n  acceptUser: User\n  acceptUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype UpdateCoupleStatusResponse {\n  ok: Boolean!\n  error: String\n  coupleId: Int\n}\n\nenum StatusOptions {\n  ACCEPTED\n  CANCELED\n  FINISHED\n  REQUESTING\n}\n\ntype EmailVerification {\n  id: Int!\n  target: String!\n  email: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PhoneVerification {\n  id: Int!\n  target: String!\n  phoneNumber: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String!\n  phoneVerificationUser: User\n  phoneVerificationUserId: Int!\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype DeletePlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype GetPlaceResponse {\n  ok: Boolean!\n  error: String\n  place: Place\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  contents: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  couple: Couple!\n  coupleId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype KakaoConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype NaverConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  fbId: String!\n  googleId: String!\n  kakaoId: String!\n  naverId: String!\n  email: String!\n  password: String!\n  signUpEmail: String!\n  verifiedEmail: Boolean!\n  name: String!\n  firstName: String!\n  lastName: String!\n  fullName: String!\n  phoneNumber: String!\n  isRequested: Boolean!\n  isAccepted: Boolean!\n  verifiedPhoneNumber: Boolean!\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
@@ -24,7 +24,8 @@ export interface Couple {
   id: number;
   status: string;
   chat: Chat | null;
-  searchPhoneNumber: string;
+  requestedPhoneNumber: string;
+  acceptedPhoneNumber: string;
   requestUser: User | null;
   requestUserId: number;
   acceptUser: User | null;
@@ -39,8 +40,6 @@ export interface Chat {
   couple: Couple;
   acceptUserId: number;
   requestUserId: number;
-  acceptUserName: string;
-  requestUserName: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -50,6 +49,8 @@ export interface Message {
   text: string;
   chat: Chat;
   chatId: number;
+  requestUserName: string;
+  acceptUserName: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -94,6 +95,7 @@ export interface Place {
 }
 
 export interface Mutation {
+  SendMessage: SendMessageResponse;
   RequestCouple: RequestCoupleResponse;
   UpdateCoupleStatus: UpdateCoupleStatusResponse;
   AddPlace: AddPlaceResponse;
@@ -108,6 +110,11 @@ export interface Mutation {
   KakaoConnect: KakaoConnectResponse;
   NaverConnect: NaverConnectResponse;
   StartPhoneVerification: StartPhoneVerificationResponse;
+}
+
+export interface SendMessageMutationArgs {
+  text: string;
+  chatId: number;
 }
 
 export interface RequestCoupleMutationArgs {
@@ -187,6 +194,12 @@ export interface NaverConnectMutationArgs {
 
 export interface StartPhoneVerificationMutationArgs {
   phoneNumber: string;
+}
+
+export interface SendMessageResponse {
+  ok: boolean;
+  error: string | null;
+  message: Message | null;
 }
 
 export interface RequestCoupleResponse {

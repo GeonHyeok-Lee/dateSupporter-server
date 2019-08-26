@@ -18,10 +18,11 @@ type Mutation {
   RequestCouple(phoneNumber: String!): RequestCoupleResponse!
   UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!
   AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
-  DeletePlace(placeId: Int!): DeletePlaceResponse!
-  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
+  DeletePlace(coupleId: Int!, placeId: Int!): DeletePlaceResponse!
+  EditPlace(coupleId: Int!, placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
+  EditUser(userId: Int!, nickName: String!, profileImage: String!): EditUserResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
   EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
   FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
@@ -47,8 +48,7 @@ type Message {
   text: String!
   chat: Chat!
   chatId: Int!
-  requestUserName: String!
-  acceptUserName: String!
+  userName: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -62,6 +62,7 @@ type GetCoupleResponse {
 type Query {
   GetCouple(coupleId: Int!): GetCoupleResponse
   GetPlace(placeId: Int!): GetPlaceResponse
+  GetUser: GetUserResponse!
 }
 
 type RequestCoupleResponse {
@@ -147,6 +148,7 @@ type Place {
   address: String!
   couple: Couple!
   coupleId: Int!
+  addUserId: Int!
   createdAt: String!
   updatedAt: String!
 }
@@ -157,6 +159,11 @@ type CompleteEmailVerificationResponse {
 }
 
 type CompletePhoneVerificationResponse {
+  ok: Boolean!
+  error: String
+}
+
+type EditUserResponse {
   ok: Boolean!
   error: String
 }
@@ -177,6 +184,12 @@ type FacebookConnectResponse {
   ok: Boolean!
   error: String
   token: String
+}
+
+type GetUserResponse {
+  ok: Boolean!
+  error: String
+  user: User
 }
 
 type GoogleConnectResponse {
@@ -211,6 +224,8 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
+  nickName: String!
+  profileImage: String!
   phoneNumber: String!
   isRequested: Boolean!
   isAccepted: Boolean!

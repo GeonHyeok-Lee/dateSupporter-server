@@ -1,23 +1,24 @@
 import { Resolvers } from "@src/types/resolvers";
 import privateResolver from "@src/utils/privateResolver";
-import { DeletePlaceMutationArgs, DeletePlaceResponse } from "@src/types/graph";
-import Couple from "@src/entities/Couple";
-import Place from "@src/entities/Place";
+import { EditUserMutationArgs, EditUserResponse } from "@src/types/graph";
+import User from "@src/entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
-    DeletePlace: privateResolver(
+    EditPlace: privateResolver(
       async (
         _,
-        args: DeletePlaceMutationArgs,
+        args: EditUserMutationArgs,
         { req }
-      ): Promise<DeletePlaceResponse> => {
-        const couple = await Couple.findOne({ id: args.coupleId });
-        const place = await Place.findOne({ id: args.placeId });
+      ): Promise<EditUserResponse> => {
+        const user: User = req.user;
         try {
-          if (place && couple) {
-            if (place.coupleId === couple.id) {
-              place.remove();
+          if (user) {
+            if (user.id === args.userId) {
+              if (args.userId !== null) {
+                delete args.userId;
+              }
+              await User.update({ id: args.userId }, { ...args });
               return {
                 ok: true,
                 error: null
@@ -25,13 +26,13 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "place와 couple의 Id값이 일치하지 않아요.."
+                error: "유저의 Id값이 일치하지 않아요.."
               };
             }
           } else {
             return {
               ok: false,
-              error: "장소를 못 찾았어요.."
+              error: "유저를 못 찾았어요.."
             };
           }
         } catch (error) {

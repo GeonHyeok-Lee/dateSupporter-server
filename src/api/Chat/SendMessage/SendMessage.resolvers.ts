@@ -17,25 +17,14 @@ const resolvers: Resolvers = {
         try {
           const chat = await Chat.findOne({ id: args.chatId });
           if (chat) {
-            if (chat.acceptUserId === user.id) {
+            if (
+              chat.acceptUserId === user.id ||
+              chat.requestUserId === user.id
+            ) {
               const message: any = await Message.create({
                 text: args.text,
                 chat,
-                acceptUserName: user.fullName
-              }).save();
-              pubSub.publish("newMessage", {
-                MessageSubscription: message
-              });
-              return {
-                ok: true,
-                error: null,
-                message
-              };
-            } else if (chat.requestUserId === user.id) {
-              const message: any = await Message.create({
-                text: args.text,
-                requestUserName: user.name,
-                chat
+                userName: user.fullName
               }).save();
               pubSub.publish("newMessage", {
                 MessageSubscription: message

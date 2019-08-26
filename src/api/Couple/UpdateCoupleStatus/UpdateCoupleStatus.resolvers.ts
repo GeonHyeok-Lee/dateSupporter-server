@@ -20,7 +20,7 @@ const resolvers: Resolvers = {
       ): Promise<UpdateCoupleStatusResponse> => {
         const { coupleId } = args;
         const user: User = req.user;
-        // 임시로 바꿔놓은 것 "!" 빼세요..
+        // 임시로 바꿔놓은 것 나중에 "!" 빼세요..
         if (!user.isRequested || !user.isAccepted) {
           try {
             let couple: any;
@@ -63,10 +63,10 @@ const resolvers: Resolvers = {
                   messages = await Message.find({ chatId: chat.id });
                 }
                 if (places) {
-                  await places.map(place => place.remove());
+                  await places.forEach(place => place.remove());
                 }
                 if (messages) {
-                  await messages.map(message => message.remove());
+                  await messages.forEach(message => message.remove());
                 }
                 if (chat) {
                   await chat.remove();

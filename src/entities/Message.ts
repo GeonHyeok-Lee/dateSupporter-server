@@ -23,11 +23,8 @@ class Message extends BaseEntity {
   @Column({ nullable: true })
   chatId: number;
 
-  @Column({ type: "text", nullable: true })
-  requestUserName: string | null;
-
-  @Column({ type: "text", nullable: true })
-  acceptUserName: string | null;
+  @Column({ type: "text" })
+  userName: string | null;
 
   @CreateDateColumn()
   createdAt: string;

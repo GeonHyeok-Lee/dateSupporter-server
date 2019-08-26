@@ -4,5 +4,10 @@ type EditPlaceResponse {
 }
 
 type Mutation {
-  EditPlace(placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
+  EditPlace(
+    coupleId: Int!
+    placeId: Int!
+    name: String!
+    contents: String!
+  ): EditPlaceResponse!
 }

@@ -40,7 +40,7 @@
     "typeorm": "^0.2.18"
   },
   "scripts": {
-    "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register index.ts -e ts,graphql",
+    "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register index.ts -e ts,graphql --ignore-watch node_modules",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
     "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts"
   },

@@ -12,6 +12,8 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
+  nickName: String!
+  profileImage: String!
   phoneNumber: String!
   isRequested: Boolean!
   isAccepted: Boolean!

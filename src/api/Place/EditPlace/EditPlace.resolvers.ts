@@ -11,12 +11,12 @@ const resolvers: Resolvers = {
       async (
         _,
         args: EditPlaceMutationArgs,
-        { req, pubSub }
+        { pubSub }
       ): Promise<EditPlaceResponse> => {
-        const couple: Couple = req.couple;
+        const couple = await Couple.findOne({ id: args.coupleId });
+        const place = await Place.findOne({ id: args.placeId });
         try {
-          const place = await Place.findOne({ id: args.placeId });
-          if (place) {
+          if (place && couple) {
             if (place.coupleId === couple.id) {
               const notNull: any = cleanNullArgs(args);
               if (notNull.placeId !== null) {
@@ -42,7 +42,7 @@ const resolvers: Resolvers = {
           } else {
             return {
               ok: false,
-              error: "장소를 못 찾았어요.."
+              error: "장소 혹은 커플을 못 찾았어요.."
             };
           }
         } catch (error) {

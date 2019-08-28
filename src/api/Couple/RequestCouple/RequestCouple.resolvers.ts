@@ -25,11 +25,11 @@ const resolvers: Resolvers = {
               acceptedPhoneNumber: phoneNumber,
               requestUser: user
             }).save();
-            pubSub.publish("coupleRequest", {
-              RequestCoupleSubscription: couple
-            });
             // user.isRequested = true;
             user.save();
+            pubSub.publish("ReqCouple", {
+              RequestCoupleSubscription: couple
+            });
             return {
               ok: true,
               error: null

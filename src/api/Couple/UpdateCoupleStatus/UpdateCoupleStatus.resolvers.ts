@@ -35,9 +35,13 @@ const resolvers: Resolvers = {
               if (couple) {
                 couple.acceptUser = user;
                 user.isAccepted = true;
-                await user.save();
+                user.isCouple = true;
                 const acceptUser: User = couple.acceptUser;
                 const requestUser: User = couple.requestUser;
+                acceptUser.isCouple = true;
+                requestUser.isCouple = true;
+                await acceptUser.save();
+                await requestUser.save();
                 const chat: Chat = await Chat.create({
                   couple,
                   requestUserId: requestUser.id,
@@ -74,9 +78,11 @@ const resolvers: Resolvers = {
                 await couple.remove();
                 user.isAccepted = false;
                 user.isRequested = false;
+                user.isCouple = false;
+                await user.save();
                 requestUser.isAccepted = false;
                 requestUser.isRequested = false;
-                await user.save();
+                requestUser.isCouple = false;
                 await requestUser.save();
                 return {
                   ok: true,

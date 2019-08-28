@@ -5,7 +5,7 @@ const resolvers = {
   Subscription: {
     RequestCoupleSubscription: {
       subscribe: withFilter(
-        (_, __, { pubSub }) => pubSub.asyncIterator("coupleRequest"),
+        (_, __, { pubSub }) => pubSub.asyncIterator("ReqCouple"),
         (payload, _, { context }) => {
           const user: User = context.currentUser;
           const {

@@ -17,5 +17,6 @@ type User {
   phoneNumber: String!
   isRequested: Boolean!
   isAccepted: Boolean!
+  isCouple: Boolean!
   verifiedPhoneNumber: Boolean!
 }

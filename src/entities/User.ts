@@ -42,10 +42,10 @@ class User extends BaseEntity {
   @Column({ type: "text", nullable: true })
   lastName: string | null;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: "text", nullable: true, default: "" })
   nickName: string;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: "text", nullable: true, default: "" })
   profileImage: string;
 
   @Column({ type: "text", nullable: true })
@@ -71,6 +71,9 @@ class User extends BaseEntity {
 
   @Column({ type: "boolean", default: false })
   isAccepted: boolean;
+
+  @Column({ type: "boolean", default: false })
+  isCouple: boolean;
 
   @OneToOne(type => Couple, couple => couple.requestUser)
   couplesAsRequestUser: Couple;

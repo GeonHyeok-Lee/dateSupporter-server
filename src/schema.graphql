@@ -61,8 +61,15 @@ type GetCoupleResponse {
 
 type Query {
   GetCouple(coupleId: Int!): GetCoupleResponse
+  GetRequestCouple: GetRequestCoupleResponse
   GetPlace(placeId: Int!): GetPlaceResponse
   GetUser: GetUserResponse!
+}
+
+type GetRequestCoupleResponse {
+  ok: Boolean!
+  error: String
+  couple: Couple
 }
 
 type RequestCoupleResponse {
@@ -229,6 +236,7 @@ type User {
   phoneNumber: String!
   isRequested: Boolean!
   isAccepted: Boolean!
+  isCouple: Boolean!
   verifiedPhoneNumber: Boolean!
 }
 

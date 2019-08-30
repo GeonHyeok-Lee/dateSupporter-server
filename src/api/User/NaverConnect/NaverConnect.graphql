@@ -6,9 +6,9 @@ type NaverConnectResponse {
 
 type Mutation {
   NaverConnect(
-    firstName: String
-    lastName: String
-    name: String
+    name: String!
+    firstName: String!
+    lastName: String!
     email: String!
     naverId: String!
   ): NaverConnectResponse!

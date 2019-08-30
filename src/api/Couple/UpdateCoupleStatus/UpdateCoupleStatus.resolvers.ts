@@ -20,8 +20,7 @@ const resolvers: Resolvers = {
       ): Promise<UpdateCoupleStatusResponse> => {
         const { coupleId } = args;
         const user: User = req.user;
-        // 임시로 바꿔놓은 것 나중에 "!" 빼세요..
-        if (!user.isRequested || !user.isAccepted) {
+        if (user) {
           try {
             let couple: any;
             if (args.status === "ACCEPTED") {
@@ -33,9 +32,9 @@ const resolvers: Resolvers = {
                 { relations: ["requestUser", "acceptUser"] }
               );
               if (couple) {
-                couple.acceptUser = user;
                 user.isAccepted = true;
                 user.isCouple = true;
+                couple.acceptUser = user;
                 const acceptUser: User = couple.acceptUser;
                 const requestUser: User = couple.requestUser;
                 acceptUser.isCouple = true;
@@ -86,7 +85,8 @@ const resolvers: Resolvers = {
                 await requestUser.save();
                 return {
                   ok: true,
-                  error: null
+                  error: null,
+                  couple
                 };
               }
             }
@@ -98,24 +98,28 @@ const resolvers: Resolvers = {
               });
               return {
                 ok: true,
-                error: null
+                error: null,
+                couple
               };
             } else {
               return {
                 ok: false,
-                error: "커플 정보를 갱신 할 수 없어요.."
+                error: "커플 정보를 갱신 할 수 없어요..",
+                couple: null
               };
             }
           } catch (error) {
             return {
               ok: false,
-              error: error.message
+              error: error.message,
+              couple: null
             };
           }
         } else {
           return {
             ok: false,
-            error: "이미 커플이에요.."
+            error: "이미 커플이에요..",
+            couple: null
           };
         }
       }

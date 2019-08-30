@@ -1,6 +1,7 @@
 type RequestCoupleResponse {
   ok: Boolean!
   error: String
+  couple: Couple
 }
 
 type Mutation {

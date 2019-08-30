@@ -40,8 +40,8 @@ const resolvers = {
             const couple = await Couple.findOne({ id: coupleId });
             if (couple) {
               return (
-                couple.acceptUser.id === user.id ||
-                couple.requestUser.id === user.id
+                couple.acceptUserId === user.id ||
+                couple.requestUserId === user.id
               );
             } else {
               return false;

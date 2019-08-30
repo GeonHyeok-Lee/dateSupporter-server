@@ -6,8 +6,8 @@ type GoogleConnectResponse {
 
 type Mutation {
   GoogleConnect(
-    firstName: String
-    lastName: String
+    firstName: String!
+    lastName: String!
     email: String!
     googleId: String!
   ): GoogleConnectResponse!

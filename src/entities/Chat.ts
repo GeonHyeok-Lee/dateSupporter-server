@@ -19,11 +19,11 @@ class Chat extends BaseEntity {
   @OneToMany(type => Message, message => message.chat, { nullable: true })
   messages: Message[];
 
-  @OneToOne(type => Couple, couple => couple.chat)
+  @OneToOne(type => Couple, couple => couple.chat, { nullable: true })
   @JoinColumn()
   couple: Couple;
 
-  @Column()
+  @Column({ nullable: true })
   coupleId: number;
 
   @Column({ nullable: true })

@@ -40,7 +40,7 @@ const resolvers: Resolvers = {
         const user = await User.findOne({ id: reqUser.id });
         if (user) {
           user.phoneNumber = phoneNumber;
-          user.verifiedPhoneNumber = true;
+          user.verifiedPhone = true;
           user.save();
           return {
             ok: true,

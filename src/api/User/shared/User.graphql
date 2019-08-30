@@ -18,5 +18,5 @@ type User {
   isRequested: Boolean!
   isAccepted: Boolean!
   isCouple: Boolean!
-  verifiedPhoneNumber: Boolean!
+  verifiedPhone: Boolean!
 }

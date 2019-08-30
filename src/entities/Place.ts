@@ -13,28 +13,28 @@ import Couple from "./Couple";
 class Place extends BaseEntity {
   @PrimaryGeneratedColumn() id: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   name: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   contents: string;
 
-  @Column({ type: "double precision", default: 0 })
+  @Column({ type: "double precision", default: 0, nullable: true })
   lat: number;
 
-  @Column({ type: "double precision", default: 0 })
+  @Column({ type: "double precision", default: 0, nullable: true })
   lng: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   address: string;
 
-  @ManyToOne(type => Couple, couple => couple.places)
+  @ManyToOne(type => Couple, couple => couple.places, { nullable: true })
   couple: Couple;
 
-  @Column()
+  @Column({ nullable: true })
   coupleId: number;
 
-  @Column()
+  @Column({ nullable: true })
   addUserId: number;
 
   @CreateDateColumn() createdAt: string;

@@ -14,17 +14,17 @@ class Message extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", nullable: true })
   text: string;
 
-  @ManyToOne(type => Chat, chat => chat.messages)
+  @ManyToOne(type => Chat, chat => chat.messages, { nullable: true })
   chat: Chat;
 
   @Column({ nullable: true })
   chatId: number;
 
-  @Column({ type: "text" })
-  userName: string | null;
+  @Column({ type: "text", nullable: true })
+  userName: string;
 
   @CreateDateColumn()
   createdAt: string;

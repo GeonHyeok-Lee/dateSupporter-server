@@ -21,29 +21,32 @@ const resolvers: Resolvers = {
           try {
             const couple = await Couple.create({
               ...args,
-              requestedPhoneNumber: user.phoneNumber,
-              acceptedPhoneNumber: phoneNumber,
+              requestPhoneNumber: user.phoneNumber,
+              acceptPhoneNumber: phoneNumber,
               requestUser: user
             }).save();
-            // user.isRequested = true;
-            user.save();
+            user.isRequested = true;
+            await user.save();
             pubSub.publish("ReqCouple", {
               RequestCoupleSubscription: couple
             });
             return {
               ok: true,
-              error: null
+              error: null,
+              couple
             };
           } catch (error) {
             return {
               ok: false,
-              error: error.message
+              error: error.message,
+              couple: null
             };
           }
         } else {
           return {
             ok: false,
-            error: "이미 커플이에요.."
+            error: "이미 커플이에요..",
+            couple: null
           };
         }
       }

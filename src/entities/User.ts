@@ -34,13 +34,13 @@ class User extends BaseEntity {
   password: string;
 
   @Column({ type: "text", nullable: true })
-  name: string | null;
+  name: string;
 
   @Column({ type: "text", nullable: true })
-  firstName: string | null;
+  firstName: string;
 
   @Column({ type: "text", nullable: true })
-  lastName: string | null;
+  lastName: string;
 
   @Column({ type: "text", nullable: true, default: "" })
   nickName: string;
@@ -52,19 +52,19 @@ class User extends BaseEntity {
   phoneNumber: string;
 
   @Column({ type: "boolean", default: false })
-  verifiedPhoneNumber: boolean;
+  verifiedPhone: boolean;
 
   @Column({ type: "text", nullable: true })
-  fbId: string | null;
+  fbId: string;
 
   @Column({ type: "text", nullable: true })
-  googleId: string | null;
+  googleId: string;
 
   @Column({ type: "text", nullable: true })
-  kakaoId: string | null;
+  kakaoId: string;
 
   @Column({ type: "text", nullable: true })
-  naverId: string | null;
+  naverId: string;
 
   @Column({ type: "boolean", default: false })
   isRequested: boolean;

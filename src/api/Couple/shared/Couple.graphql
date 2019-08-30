@@ -2,12 +2,12 @@ type Couple {
   id: Int!
   status: String!
   chat: Chat
-  requestedPhoneNumber: String!
-  acceptedPhoneNumber: String!
   requestUser: User
   requestUserId: Int!
   acceptUser: User
   acceptUserId: Int!
+  requestPhoneNumber: String!
+  acceptPhoneNumber: String!
   createdAt: String!
   updatedAt: String!
 }

@@ -32,7 +32,7 @@ class Couple extends BaseEntity {
   @JoinColumn()
   requestUser: User;
 
-  @Column()
+  @Column({ nullable: true })
   requestUserId: number;
 
   @OneToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
@@ -43,10 +43,10 @@ class Couple extends BaseEntity {
   acceptUserId: number;
 
   @Column({ type: "text", nullable: true })
-  requestedPhoneNumber: string;
+  requestPhoneNumber: string;
 
   @Column({ type: "text", nullable: true })
-  acceptedPhoneNumber: string;
+  acceptPhoneNumber: string;
 
   @OneToMany(type => Place, place => place.couple, { nullable: true })
   places: Place[];

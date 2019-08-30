@@ -20,15 +20,16 @@ type Mutation {
   AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   DeletePlace(coupleId: Int!, placeId: Int!): DeletePlaceResponse!
   EditPlace(coupleId: Int!, placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
+  ResetUser: ResetUserResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EditUser(userId: Int!, nickName: String!, profileImage: String!): EditUserResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
   EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
-  FacebookConnect(firstName: String, lastName: String, email: String!, fbId: String!): FacebookConnectResponse!
-  GoogleConnect(firstName: String, lastName: String, email: String!, googleId: String!): GoogleConnectResponse!
+  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!
+  GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!): GoogleConnectResponse!
   KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
-  NaverConnect(firstName: String, lastName: String, name: String, email: String!, naverId: String!): NaverConnectResponse!
+  NaverConnect(name: String!, firstName: String!, lastName: String!, email: String!, naverId: String!): NaverConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
 
@@ -75,18 +76,19 @@ type GetRequestCoupleResponse {
 type RequestCoupleResponse {
   ok: Boolean!
   error: String
+  couple: Couple
 }
 
 type Couple {
   id: Int!
   status: String!
   chat: Chat
-  requestedPhoneNumber: String!
-  acceptedPhoneNumber: String!
   requestUser: User
   requestUserId: Int!
   acceptUser: User
   acceptUserId: Int!
+  requestPhoneNumber: String!
+  acceptPhoneNumber: String!
   createdAt: String!
   updatedAt: String!
 }
@@ -94,6 +96,7 @@ type Couple {
 type UpdateCoupleStatusResponse {
   ok: Boolean!
   error: String
+  couple: Couple
 }
 
 enum StatusOptions {
@@ -158,6 +161,11 @@ type Place {
   addUserId: Int!
   createdAt: String!
   updatedAt: String!
+}
+
+type ResetUserResponse {
+  ok: Boolean!
+  error: String
 }
 
 type CompleteEmailVerificationResponse {
@@ -237,7 +245,7 @@ type User {
   isRequested: Boolean!
   isAccepted: Boolean!
   isCouple: Boolean!
-  verifiedPhoneNumber: Boolean!
+  verifiedPhone: Boolean!
 }
 
 type StartPhoneVerificationResponse {

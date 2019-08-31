@@ -27,7 +27,7 @@ const appOptions: Options = {
           };
         }
       }
-      throw new Error("JWT가 없어서 Subscribe가 안 되요..");
+      throw new Error("You don't have X-JWT");
     }
   }
 };

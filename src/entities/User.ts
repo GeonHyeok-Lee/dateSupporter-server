@@ -5,13 +5,14 @@ import {
   Column,
   OneToMany,
   BeforeInsert,
-  BeforeUpdate,
-  OneToOne
+  BeforeUpdate
 } from "typeorm";
 import { IsEmail } from "class-validator";
 import Couple from "./Couple";
 import PhoneVerification from "./PhoneVerification";
 import bcrypt from "bcrypt";
+import Chat from "./Chat";
+import Message from "./Message";
 
 const BCRYPT_ROUNDS = 10;
 
@@ -75,11 +76,20 @@ class User extends BaseEntity {
   @Column({ type: "boolean", default: false })
   isCouple: boolean;
 
-  @OneToOne(type => Couple, couple => couple.requestUser)
-  couplesAsRequestUser: Couple;
+  @OneToMany(type => Couple, couple => couple.requestUser)
+  couplesAsRequestUser: Couple[];
 
-  @OneToOne(type => Couple, couple => couple.acceptUser)
-  couplesAsAcceptUser: Couple;
+  @OneToMany(type => Couple, couple => couple.acceptUser)
+  couplesAsAcceptUser: Couple[];
+
+  @OneToMany(type => Chat, chat => chat.requestUser)
+  chatsAsRequestUser: Chat[];
+
+  @OneToMany(type => Chat, chat => chat.acceptUser)
+  chatsAsAcceptUser: Chat[];
+
+  @OneToMany(type => Message, message => message.user)
+  messages: Message[];
 
   @OneToMany(
     type => PhoneVerification,

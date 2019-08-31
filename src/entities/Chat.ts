@@ -7,10 +7,11 @@ import {
   OneToMany,
   Column,
   OneToOne,
-  JoinColumn
+  ManyToOne
 } from "typeorm";
 import Message from "./Message";
 import Couple from "./Couple";
+import User from "./User";
 
 @Entity()
 class Chat extends BaseEntity {
@@ -20,14 +21,21 @@ class Chat extends BaseEntity {
   messages: Message[];
 
   @OneToOne(type => Couple, couple => couple.chat, { nullable: true })
-  @JoinColumn()
   couple: Couple;
 
   @Column({ nullable: true })
   coupleId: number;
 
+  @ManyToOne(type => User, user => user.chatsAsRequestUser, {
+    nullable: true
+  })
+  requestUser: User;
+
   @Column({ nullable: true })
   requestUserId: number;
+
+  @ManyToOne(type => User, user => user.chatsAsAcceptUser, { nullable: true })
+  acceptUser: User;
 
   @Column({ nullable: true })
   acceptUserId: number;

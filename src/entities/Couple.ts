@@ -7,7 +7,8 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  OneToMany
+  OneToMany,
+  ManyToOne
 } from "typeorm";
 import User from "./User";
 import Chat from "./Chat";
@@ -26,16 +27,22 @@ class Couple extends BaseEntity {
   status: CoupleStatus;
 
   @OneToOne(type => Chat, chat => chat.couple, { nullable: true })
+  @JoinColumn()
   chat: Chat;
 
-  @OneToOne(type => User, user => user.couplesAsRequestUser, { nullable: true })
+  @Column({ nullable: true })
+  chatId: number;
+
+  @ManyToOne(type => User, user => user.couplesAsRequestUser, {
+    nullable: true
+  })
   @JoinColumn()
   requestUser: User;
 
   @Column({ nullable: true })
   requestUserId: number;
 
-  @OneToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
+  @ManyToOne(type => User, user => user.couplesAsAcceptUser, { nullable: true })
   @JoinColumn()
   acceptUser: User;
 

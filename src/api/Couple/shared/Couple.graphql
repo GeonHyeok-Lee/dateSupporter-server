@@ -2,6 +2,7 @@ type Couple {
   id: Int!
   status: String!
   chat: Chat
+  chatId: Int!
   requestUser: User
   requestUserId: Int!
   acceptUser: User

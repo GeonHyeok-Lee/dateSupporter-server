@@ -1,9 +1,11 @@
 type Chat {
   id: Int!
   messages: [Message]
-  couple: Couple!
+  couple: Couple
   coupleId: Int!
+  acceptUser: User
   acceptUserId: Int!
+  requestUser: User
   requestUserId: Int!
   createdAt: String!
   updatedAt: String!

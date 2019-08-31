@@ -5,5 +5,5 @@ type GetCoupleResponse {
 }
 
 type Query {
-  GetCouple(coupleId: Int!): GetCoupleResponse
+  GetCouple(coupleId: Int!): GetCoupleResponse!
 }

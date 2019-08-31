@@ -10,31 +10,39 @@ const resolvers: Resolvers = {
     GetRequestCouple: privateResolver(
       async (_, __, { req }): Promise<GetRequestCoupleResponse> => {
         const user: User = req.user;
-        const couple = await getRepository(Couple).findOne(
-          {
-            acceptPhoneNumber: user.phoneNumber,
-            status: "REQUESTING"
-          },
-          { relations: ["requestUser", "acceptUser"] }
-        );
-        try {
-          if (couple) {
-            return {
-              ok: true,
-              error: null,
-              couple
-            };
-          } else {
+        if (!user.isRequested) {
+          const couple = await getRepository(Couple).findOne(
+            {
+              acceptPhoneNumber: user.phoneNumber,
+              status: "REQUESTING"
+            },
+            { relations: ["requestUser"] }
+          );
+          try {
+            if (couple) {
+              return {
+                ok: true,
+                error: null,
+                couple
+              };
+            } else {
+              return {
+                ok: false,
+                error: "해당 Couple이 존재하지 않아요..",
+                couple: null
+              };
+            }
+          } catch (error) {
             return {
               ok: false,
-              error: "해당 Couple이 존재하지 않아요..",
+              error: error.message,
               couple: null
             };
           }
-        } catch (error) {
+        } else {
           return {
             ok: false,
-            error: error.message,
+            error: "이미 누군가에게 요청한 상태예요.",
             couple: null
           };
         }

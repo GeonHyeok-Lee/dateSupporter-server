@@ -18,7 +18,7 @@ const resolvers: Resolvers = {
             {
               id: args.coupleId
             },
-            { relations: ["requestUser", "acceptUser"] }
+            { relations: ["chat", "requestUser", "acceptUser"] }
           );
           if (couple) {
             if (

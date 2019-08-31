@@ -1,9 +1,10 @@
 type Message {
   id: Int!
   text: String!
-  chat: Chat!
+  chat: Chat
   chatId: Int!
-  userName: String!
+  user: User
+  userId: Int!
   createdAt: String!
   updatedAt: String!
 }

@@ -1,11 +1,16 @@
-export const typeDefs = ["type Subscription {\n  MessageSubscription: Message\n  CoupleStatusSubscription: Couple\n  RequestCoupleSubscription: Couple\n  AddPlaceSubscription: Place\n  EditPlaceSubscription: Place\n  DeletePlaceSubscription: Place\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Mutation {\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  RequestCouple(phoneNumber: String!): RequestCoupleResponse!\n  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!\n  AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!\n  DeletePlace(coupleId: Int!, placeId: Int!): DeletePlaceResponse!\n  EditPlace(coupleId: Int!, placeId: Int!, name: String!, contents: String!): EditPlaceResponse!\n  ResetUser: ResetUserResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!\n  EditUser(userId: Int!, nickName: String!, profileImage: String!): EditUserResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!\n  GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!): GoogleConnectResponse!\n  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!\n  NaverConnect(name: String!, firstName: String!, lastName: String!, email: String!, naverId: String!): NaverConnectResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  couple: Couple!\n  coupleId: Int!\n  acceptUserId: Int!\n  requestUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat!\n  chatId: Int!\n  userName: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype GetCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype Query {\n  GetCouple(coupleId: Int!): GetCoupleResponse\n  GetRequestCouple: GetRequestCoupleResponse\n  GetPlace(placeId: Int!): GetPlaceResponse\n  GetUser: GetUserResponse!\n}\n\ntype GetRequestCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype RequestCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype Couple {\n  id: Int!\n  status: String!\n  chat: Chat\n  requestUser: User\n  requestUserId: Int!\n  acceptUser: User\n  acceptUserId: Int!\n  requestPhoneNumber: String!\n  acceptPhoneNumber: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype UpdateCoupleStatusResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\nenum StatusOptions {\n  ACCEPTED\n  CANCELED\n  FINISHED\n  REQUESTING\n}\n\ntype EmailVerification {\n  id: Int!\n  target: String!\n  email: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PhoneVerification {\n  id: Int!\n  target: String!\n  phoneNumber: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String!\n  phoneVerificationUser: User\n  phoneVerificationUserId: Int!\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype DeletePlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype GetPlaceResponse {\n  ok: Boolean!\n  error: String\n  place: Place\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  contents: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  couple: Couple!\n  coupleId: Int!\n  addUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype ResetUserResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype KakaoConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype NaverConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  fbId: String!\n  googleId: String!\n  kakaoId: String!\n  naverId: String!\n  email: String!\n  password: String!\n  signUpEmail: String!\n  verifiedEmail: Boolean!\n  name: String!\n  firstName: String!\n  lastName: String!\n  fullName: String!\n  nickName: String!\n  profileImage: String!\n  phoneNumber: String!\n  isRequested: Boolean!\n  isAccepted: Boolean!\n  isCouple: Boolean!\n  verifiedPhone: Boolean!\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n"];
+export const typeDefs = ["type GetChatResponse {\n  ok: Boolean!\n  error: String\n  chat: Chat\n}\n\ntype Query {\n  GetChat(chatId: Int!): GetChatResponse!\n  GetCouple(coupleId: Int!): GetCoupleResponse!\n  GetRequestCouple: GetRequestCoupleResponse\n  GetPlace(placeId: Int!): GetPlaceResponse\n  GetUser: GetUserResponse!\n}\n\ntype Subscription {\n  MessageSubscription: Message\n  CoupleStatusSubscription: Couple\n  RequestCoupleSubscription: Couple\n  AddPlaceSubscription: Place\n  EditPlaceSubscription: Place\n  DeletePlaceSubscription: Place\n}\n\ntype SendMessageResponse {\n  ok: Boolean!\n  error: String\n  message: Message\n}\n\ntype Mutation {\n  SendMessage(text: String!, chatId: Int!): SendMessageResponse!\n  RequestCouple(phoneNumber: String!): RequestCoupleResponse!\n  UpdateCoupleStatus(coupleId: Int!, status: StatusOptions!): UpdateCoupleStatusResponse!\n  AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!\n  DeletePlace(coupleId: Int!, placeId: Int!): DeletePlaceResponse!\n  EditPlace(coupleId: Int!, placeId: Int!, name: String!, contents: String!): EditPlaceResponse!\n  ResetUser: ResetUserResponse!\n  CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!\n  CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!\n  EditUser(userId: Int!, nickName: String!, profileImage: String!): EditUserResponse!\n  EmailSignIn(email: String!, password: String!): EmailSignInResponse!\n  EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!\n  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!\n  GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!): GoogleConnectResponse!\n  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!\n  NaverConnect(name: String!, firstName: String!, lastName: String!, email: String!, naverId: String!): NaverConnectResponse!\n  StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!\n}\n\ntype Chat {\n  id: Int!\n  messages: [Message]\n  couple: Couple\n  coupleId: Int!\n  acceptUser: User\n  acceptUserId: Int!\n  requestUser: User\n  requestUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype Message {\n  id: Int!\n  text: String!\n  chat: Chat\n  chatId: Int!\n  user: User\n  userId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype GetCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype GetRequestCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype RequestCoupleResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\ntype Couple {\n  id: Int!\n  status: String!\n  chat: Chat\n  chatId: Int!\n  requestUser: User\n  requestUserId: Int!\n  acceptUser: User\n  acceptUserId: Int!\n  requestPhoneNumber: String!\n  acceptPhoneNumber: String!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype UpdateCoupleStatusResponse {\n  ok: Boolean!\n  error: String\n  couple: Couple\n}\n\nenum StatusOptions {\n  ACCEPTED\n  CANCELED\n  FINISHED\n  REQUESTING\n}\n\ntype EmailVerification {\n  id: Int!\n  target: String!\n  email: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String\n}\n\ntype PhoneVerification {\n  id: Int!\n  target: String!\n  phoneNumber: String!\n  key: String!\n  verified: Boolean!\n  createdAt: String!\n  updatedAt: String!\n  phoneVerificationUser: User\n  phoneVerificationUserId: Int!\n}\n\ntype AddPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype DeletePlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditPlaceResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype GetPlaceResponse {\n  ok: Boolean!\n  error: String\n  place: Place\n}\n\ntype Place {\n  id: Int!\n  name: String!\n  contents: String!\n  lat: Float!\n  lng: Float!\n  address: String!\n  couple: Couple!\n  coupleId: Int!\n  addUserId: Int!\n  createdAt: String!\n  updatedAt: String!\n}\n\ntype ResetUserResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompleteEmailVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype CompletePhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EditUserResponse {\n  ok: Boolean!\n  error: String\n}\n\ntype EmailSignInResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype EmailSignUpResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype FacebookConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype GetUserResponse {\n  ok: Boolean!\n  error: String\n  user: User\n}\n\ntype GoogleConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype KakaoConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype NaverConnectResponse {\n  ok: Boolean!\n  error: String\n  token: String\n}\n\ntype User {\n  id: Int!\n  fbId: String!\n  googleId: String!\n  kakaoId: String!\n  naverId: String!\n  email: String!\n  password: String!\n  signUpEmail: String!\n  verifiedEmail: Boolean!\n  name: String!\n  firstName: String!\n  lastName: String!\n  fullName: String!\n  nickName: String!\n  profileImage: String!\n  phoneNumber: String!\n  isRequested: Boolean!\n  isAccepted: Boolean!\n  isCouple: Boolean!\n  verifiedPhone: Boolean!\n}\n\ntype StartPhoneVerificationResponse {\n  ok: Boolean!\n  error: String\n}\n"];
 /* tslint:disable */
 
 export interface Query {
-  GetCouple: GetCoupleResponse | null;
+  GetChat: GetChatResponse;
+  GetCouple: GetCoupleResponse;
   GetRequestCouple: GetRequestCoupleResponse | null;
   GetPlace: GetPlaceResponse | null;
   GetUser: GetUserResponse;
+}
+
+export interface GetChatQueryArgs {
+  chatId: number;
 }
 
 export interface GetCoupleQueryArgs {
@@ -16,32 +21,20 @@ export interface GetPlaceQueryArgs {
   placeId: number;
 }
 
-export interface GetCoupleResponse {
+export interface GetChatResponse {
   ok: boolean;
   error: string | null;
-  couple: Couple | null;
-}
-
-export interface Couple {
-  id: number;
-  status: string;
   chat: Chat | null;
-  requestUser: User | null;
-  requestUserId: number;
-  acceptUser: User | null;
-  acceptUserId: number;
-  requestPhoneNumber: string;
-  acceptPhoneNumber: string;
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface Chat {
   id: number;
   messages: Array<Message> | null;
-  couple: Couple;
+  couple: Couple | null;
   coupleId: number;
+  acceptUser: User | null;
   acceptUserId: number;
+  requestUser: User | null;
   requestUserId: number;
   createdAt: string;
   updatedAt: string;
@@ -50,9 +43,10 @@ export interface Chat {
 export interface Message {
   id: number;
   text: string;
-  chat: Chat;
+  chat: Chat | null;
   chatId: number;
-  userName: string;
+  user: User | null;
+  userId: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -78,6 +72,27 @@ export interface User {
   isAccepted: boolean;
   isCouple: boolean;
   verifiedPhone: boolean;
+}
+
+export interface Couple {
+  id: number;
+  status: string;
+  chat: Chat | null;
+  chatId: number;
+  requestUser: User | null;
+  requestUserId: number;
+  acceptUser: User | null;
+  acceptUserId: number;
+  requestPhoneNumber: string;
+  acceptPhoneNumber: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface GetCoupleResponse {
+  ok: boolean;
+  error: string | null;
+  couple: Couple | null;
 }
 
 export interface GetRequestCoupleResponse {

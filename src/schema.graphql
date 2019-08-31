@@ -1,3 +1,17 @@
+type GetChatResponse {
+  ok: Boolean!
+  error: String
+  chat: Chat
+}
+
+type Query {
+  GetChat(chatId: Int!): GetChatResponse!
+  GetCouple(coupleId: Int!): GetCoupleResponse!
+  GetRequestCouple: GetRequestCoupleResponse
+  GetPlace(placeId: Int!): GetPlaceResponse
+  GetUser: GetUserResponse!
+}
+
 type Subscription {
   MessageSubscription: Message
   CoupleStatusSubscription: Couple
@@ -36,9 +50,11 @@ type Mutation {
 type Chat {
   id: Int!
   messages: [Message]
-  couple: Couple!
+  couple: Couple
   coupleId: Int!
+  acceptUser: User
   acceptUserId: Int!
+  requestUser: User
   requestUserId: Int!
   createdAt: String!
   updatedAt: String!
@@ -47,9 +63,10 @@ type Chat {
 type Message {
   id: Int!
   text: String!
-  chat: Chat!
+  chat: Chat
   chatId: Int!
-  userName: String!
+  user: User
+  userId: Int!
   createdAt: String!
   updatedAt: String!
 }
@@ -58,13 +75,6 @@ type GetCoupleResponse {
   ok: Boolean!
   error: String
   couple: Couple
-}
-
-type Query {
-  GetCouple(coupleId: Int!): GetCoupleResponse
-  GetRequestCouple: GetRequestCoupleResponse
-  GetPlace(placeId: Int!): GetPlaceResponse
-  GetUser: GetUserResponse!
 }
 
 type GetRequestCoupleResponse {
@@ -83,6 +93,7 @@ type Couple {
   id: Int!
   status: String!
   chat: Chat
+  chatId: Int!
   requestUser: User
   requestUserId: Int!
   acceptUser: User

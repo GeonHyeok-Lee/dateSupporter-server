@@ -37,14 +37,14 @@ const resolvers: Resolvers = {
                 couple.acceptUser = user;
                 const acceptUser: User = couple.acceptUser;
                 const requestUser: User = couple.requestUser;
-                acceptUser.isCouple = true;
                 requestUser.isCouple = true;
                 await acceptUser.save();
                 await requestUser.save();
                 const chat: Chat = await Chat.create({
                   couple,
-                  requestUserId: requestUser.id,
-                  acceptUserId: acceptUser.id
+                  coupleId: couple.id,
+                  acceptUser,
+                  requestUser
                 }).save();
                 couple.chat = chat;
                 await couple.save();

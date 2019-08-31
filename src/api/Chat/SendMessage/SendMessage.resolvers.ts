@@ -24,7 +24,7 @@ const resolvers: Resolvers = {
               const message: any = await Message.create({
                 text: args.text,
                 chat,
-                userName: user.fullName
+                user
               }).save();
               pubSub.publish("newMessage", {
                 MessageSubscription: message

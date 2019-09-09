@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
       _,
       args: FacebookConnectMutationArgs
     ): Promise<FacebookConnectResponse> => {
-      const { fbId } = args;
+      const { fbId, firstName, lastName } = args;
       try {
         const existingUser = await User.findOne({ fbId });
         if (existingUser) {
@@ -32,7 +32,9 @@ const resolvers: Resolvers = {
       }
       try {
         const newUser = await User.create({
-          ...args
+          ...args,
+          nickname: `${firstName} ${lastName}`,
+          profileImage: `http://graph.facebook.com/${fbId}/picture?type=square`
         }).save();
         const token = createJWT(newUser.id);
         return {

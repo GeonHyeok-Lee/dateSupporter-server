@@ -1,5 +1,6 @@
 type User {
   id: Int!
+  coupleId: Int!
   fbId: String!
   googleId: String!
   kakaoId: String!
@@ -12,7 +13,7 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
-  nickName: String!
+  nickname: String!
   profileImage: String!
   phoneNumber: String!
   isRequested: Boolean!

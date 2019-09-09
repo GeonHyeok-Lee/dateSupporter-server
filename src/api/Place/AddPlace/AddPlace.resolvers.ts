@@ -11,19 +11,16 @@ const resolvers: Resolvers = {
       async (
         _,
         args: AddPlaceMutationArgs,
-        { req, pubSub }
+        { req }
       ): Promise<AddPlaceResponse> => {
         const user: User = req.user;
         const couple = await Couple.findOne({ id: args.coupleId });
         try {
-          const place = await Place.create({
+          await Place.create({
             ...args,
             addUserId: user.id,
             couple
           }).save();
-          pubSub.publish("addPlace", {
-            AddPlaceSubscription: place
-          });
           return {
             ok: true,
             error: null

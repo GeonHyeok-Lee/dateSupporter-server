@@ -4,9 +4,5 @@ type EditUserResponse {
 }
 
 type Mutation {
-  EditUser(
-    userId: Int!
-    nickName: String!
-    profileImage: String!
-  ): EditUserResponse!
+  EditUser(nickname: String!, profileImage: String!): EditUserResponse!
 }

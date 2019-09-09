@@ -10,5 +10,6 @@ type Mutation {
     lastName: String!
     email: String!
     googleId: String!
+    profileImage: String!
   ): GoogleConnectResponse!
 }

@@ -5,7 +5,7 @@ import User from "@src/entities/User";
 
 const resolvers: Resolvers = {
   Mutation: {
-    EditPlace: privateResolver(
+    EditUser: privateResolver(
       async (
         _,
         args: EditUserMutationArgs,
@@ -14,21 +14,11 @@ const resolvers: Resolvers = {
         const user: User = req.user;
         try {
           if (user) {
-            if (user.id === args.userId) {
-              if (args.userId !== null) {
-                delete args.userId;
-              }
-              await User.update({ id: args.userId }, { ...args });
-              return {
-                ok: true,
-                error: null
-              };
-            } else {
-              return {
-                ok: false,
-                error: "유저의 Id값이 일치하지 않아요.."
-              };
-            }
+            await User.update({ ...user }, { ...args });
+            return {
+              ok: true,
+              error: null
+            };
           } else {
             return {
               ok: false,

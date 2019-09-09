@@ -11,7 +11,7 @@ const resolvers: Resolvers = {
       async (
         _,
         args: EditPlaceMutationArgs,
-        { pubSub }
+        ___
       ): Promise<EditPlaceResponse> => {
         const couple = await Couple.findOne({ id: args.coupleId });
         const place = await Place.findOne({ id: args.placeId });
@@ -22,13 +22,7 @@ const resolvers: Resolvers = {
               if (notNull.placeId !== null) {
                 delete notNull.placeId;
               }
-              const updatedPlace = await Place.update(
-                { id: args.placeId },
-                { ...notNull }
-              );
-              pubSub.publish("editPlace", {
-                EditPlaceSubscription: updatedPlace
-              });
+              await Place.update({ id: args.placeId }, { ...notNull });
               return {
                 ok: true,
                 error: null
@@ -48,7 +42,7 @@ const resolvers: Resolvers = {
         } catch (error) {
           return {
             ok: false,
-            error: error.message
+            error: "뭐야!!"
           };
         }
       }

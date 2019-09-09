@@ -11,6 +11,14 @@ const resolvers: Resolvers = {
         error: null,
         user
       };
+    }),
+    GetCoupleIdFromUser: privateResolver(async (_, __, { req }) => {
+      const user: User = req.user;
+      return {
+        ok: true,
+        error: null,
+        user
+      };
     })
   }
 };

@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
       async (
         _,
         args: DeletePlaceMutationArgs,
-        { req }
+        ___
       ): Promise<DeletePlaceResponse> => {
         const couple = await Couple.findOne({ id: args.coupleId });
         const place = await Place.findOne({ id: args.placeId });

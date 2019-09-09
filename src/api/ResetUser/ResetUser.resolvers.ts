@@ -12,6 +12,7 @@ const resolvers: Resolvers = {
             user.isRequested = false;
             user.isAccepted = false;
             user.isCouple = false;
+            user.coupleId = null;
             await user.save();
             return {
               ok: true,

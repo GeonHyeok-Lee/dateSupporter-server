@@ -5,5 +5,5 @@ type GetRequestCoupleResponse {
 }
 
 type Query {
-  GetRequestCouple: GetRequestCoupleResponse
+  GetRequestCouple: GetRequestCoupleResponse!
 }

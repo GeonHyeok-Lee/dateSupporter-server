@@ -1,8 +1,8 @@
 import { Resolvers } from "@src/types/resolvers";
 import privateResolver from "@src/utils/privateResolver";
-import Place from "@src/entities/Place";
 import Couple from "@src/entities/Couple";
 import { GetPlaceQueryArgs, GetPlaceResponse } from "@src/types/graph";
+import User from "@src/entities/User";
 
 const resolvers: Resolvers = {
   Query: {
@@ -12,37 +12,38 @@ const resolvers: Resolvers = {
         args: GetPlaceQueryArgs,
         { req }
       ): Promise<GetPlaceResponse> => {
-        const couple: Couple = req.couple;
+        const user: User = req.user;
         try {
-          const place: any = await Place.findOne({
-            id: args.placeId
-          });
-          if (place) {
-            if (place.coupleId === couple.id) {
+          const couple: any = await Couple.findOne(
+            { id: args.coupleId },
+            { relations: ["places"] }
+          );
+          if (couple) {
+            if (couple.id === user.coupleId) {
               return {
                 ok: true,
                 error: null,
-                place
+                places: couple.places
               };
             } else {
               return {
                 ok: false,
-                error: "Couple Id값에 해당하는 장소를 못 찾았어요..",
-                place: null
+                error: "Id값이 매치되지 않아요..",
+                places: null
               };
             }
           } else {
             return {
               ok: false,
               error: "해당 장소가 존재하지 않아요..",
-              place: null
+              places: null
             };
           }
         } catch (error) {
           return {
             ok: false,
             error: error.message,
-            place: null
+            places: null
           };
         }
       }

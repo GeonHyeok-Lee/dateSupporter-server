@@ -44,7 +44,7 @@ class User extends BaseEntity {
   lastName: string;
 
   @Column({ type: "text", nullable: true, default: "" })
-  nickName: string;
+  nickname: string;
 
   @Column({ type: "text", nullable: true, default: "" })
   profileImage: string;
@@ -54,6 +54,9 @@ class User extends BaseEntity {
 
   @Column({ type: "boolean", default: false })
   verifiedPhone: boolean;
+
+  @Column({ nullable: true })
+  coupleId: number;
 
   @Column({ type: "text", nullable: true })
   fbId: string;

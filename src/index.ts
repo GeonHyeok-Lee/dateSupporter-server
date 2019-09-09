@@ -27,7 +27,7 @@ const appOptions: Options = {
           };
         }
       }
-      throw new Error("You don't have X-JWT");
+      throw new Error("X-JWT Error");
     }
   }
 };

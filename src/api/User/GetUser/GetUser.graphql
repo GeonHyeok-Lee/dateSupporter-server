@@ -6,4 +6,5 @@ type GetUserResponse {
 
 type Query {
   GetUser: GetUserResponse!
+  GetCoupleIdFromUser: GetUserResponse!
 }

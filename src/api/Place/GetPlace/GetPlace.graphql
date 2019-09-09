@@ -1,9 +1,9 @@
 type GetPlaceResponse {
   ok: Boolean!
   error: String
-  place: Place
+  places: [Place]
 }
 
 type Query {
-  GetPlace(placeId: Int!): GetPlaceResponse
+  GetPlace(coupleId: Int!): GetPlaceResponse
 }

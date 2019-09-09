@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
     GetRequestCouple: privateResolver(
       async (_, __, { req }): Promise<GetRequestCoupleResponse> => {
         const user: User = req.user;
-        if (!user.isRequested) {
+        if (!user.isRequested && !user.isCouple) {
           const couple = await getRepository(Couple).findOne(
             {
               acceptPhoneNumber: user.phoneNumber,

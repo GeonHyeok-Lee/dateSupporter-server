@@ -34,11 +34,12 @@ const resolvers: Resolvers = {
               if (couple) {
                 user.isAccepted = true;
                 user.isCouple = true;
+                user.coupleId = couple.id;
+                await user.save();
                 couple.acceptUser = user;
                 const acceptUser: User = couple.acceptUser;
                 const requestUser: User = couple.requestUser;
                 requestUser.isCouple = true;
-                await acceptUser.save();
                 await requestUser.save();
                 const chat: Chat = await Chat.create({
                   couple,

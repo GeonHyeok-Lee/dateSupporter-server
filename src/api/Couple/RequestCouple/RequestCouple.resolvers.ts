@@ -17,7 +17,7 @@ const resolvers: Resolvers = {
       ): Promise<RequestCoupleResponse> => {
         const { phoneNumber } = args;
         const user: User = req.user;
-        if (!user.isRequested && !user.isAccepted) {
+        if (!user.isRequested && !user.isAccepted && !user.isCouple) {
           try {
             const couple = await Couple.create({
               ...args,
@@ -26,6 +26,7 @@ const resolvers: Resolvers = {
               requestUser: user
             }).save();
             user.isRequested = true;
+            user.coupleId = couple.id;
             await user.save();
             pubSub.publish("ReqCouple", {
               RequestCoupleSubscription: couple

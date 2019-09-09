@@ -12,7 +12,7 @@ const resolvers: Resolvers = {
       _,
       args: GoogleConnectMutationArgs
     ): Promise<GoogleConnectResponse> => {
-      const { googleId } = args;
+      const { googleId, firstName, lastName } = args;
       try {
         const existingUser = await User.findOne({ googleId });
         if (existingUser) {
@@ -32,7 +32,8 @@ const resolvers: Resolvers = {
       }
       try {
         const newUser = await User.create({
-          ...args
+          ...args,
+          nickname: `${firstName} ${lastName}`
         }).save();
         const token = createJWT(newUser.id);
         return {

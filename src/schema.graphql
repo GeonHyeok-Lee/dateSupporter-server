@@ -7,18 +7,16 @@ type GetChatResponse {
 type Query {
   GetChat(chatId: Int!): GetChatResponse!
   GetCouple(coupleId: Int!): GetCoupleResponse!
-  GetRequestCouple: GetRequestCoupleResponse
-  GetPlace(placeId: Int!): GetPlaceResponse
+  GetRequestCouple: GetRequestCoupleResponse!
+  GetPlace(coupleId: Int!): GetPlaceResponse
   GetUser: GetUserResponse!
+  GetCoupleIdFromUser: GetUserResponse!
 }
 
 type Subscription {
   MessageSubscription: Message
   CoupleStatusSubscription: Couple
   RequestCoupleSubscription: Couple
-  AddPlaceSubscription: Place
-  EditPlaceSubscription: Place
-  DeletePlaceSubscription: Place
 }
 
 type SendMessageResponse {
@@ -37,12 +35,12 @@ type Mutation {
   ResetUser: ResetUserResponse!
   CompleteEmailVerification(key: String!): CompleteEmailVerificationResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
-  EditUser(userId: Int!, nickName: String!, profileImage: String!): EditUserResponse!
+  EditUser(nickname: String!, profileImage: String!): EditUserResponse!
   EmailSignIn(email: String!, password: String!): EmailSignInResponse!
   EmailSignUp(email: String!, password: String!, name: String!): EmailSignUpResponse!
   FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!
-  GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!): GoogleConnectResponse!
-  KakaoConnect(name: String!, email: String!, kakaoId: String!): KakaoConnectResponse!
+  GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!, profileImage: String!): GoogleConnectResponse!
+  KakaoConnect(name: String!, nickname: String!, email: String!, kakaoId: String!, profileImage: String!): KakaoConnectResponse!
   NaverConnect(name: String!, firstName: String!, lastName: String!, email: String!, naverId: String!): NaverConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
 }
@@ -157,7 +155,7 @@ type EditPlaceResponse {
 type GetPlaceResponse {
   ok: Boolean!
   error: String
-  place: Place
+  places: [Place]
 }
 
 type Place {
@@ -238,6 +236,7 @@ type NaverConnectResponse {
 
 type User {
   id: Int!
+  coupleId: Int!
   fbId: String!
   googleId: String!
   kakaoId: String!
@@ -250,7 +249,7 @@ type User {
   firstName: String!
   lastName: String!
   fullName: String!
-  nickName: String!
+  nickname: String!
   profileImage: String!
   phoneNumber: String!
   isRequested: Boolean!

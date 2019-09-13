@@ -27,7 +27,7 @@ const appOptions: Options = {
           };
         }
       }
-      throw new Error("X-JWT Error");
+      throw new Error("Auth Error");
     }
   }
 };

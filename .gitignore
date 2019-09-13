@@ -62,6 +62,3 @@ typings/
 
 # webpack
 webpack.config.js
-
-# etc
-src/utils/sendEmail.ts

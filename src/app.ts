@@ -1,10 +1,11 @@
 import cors from "cors";
-import { GraphQLServer, PubSub } from "graphql-yoga";
+import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
 import morgan from "morgan";
 import schema from "@src/schema";
 import decodeJWT from "@src/utils/decodeJWT";
 import { Response, NextFunction } from "express";
+import { PubSub } from "graphql-subscriptions";
 
 class App {
   public app: GraphQLServer;

@@ -4,11 +4,7 @@ type User {
   fbId: String!
   googleId: String!
   kakaoId: String!
-  naverId: String!
   email: String!
-  password: String!
-  signUpEmail: String!
-  verifiedEmail: Boolean!
   name: String!
   firstName: String!
   lastName: String!

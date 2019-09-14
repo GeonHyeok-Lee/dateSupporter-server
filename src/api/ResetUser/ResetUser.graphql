@@ -1,8 +1,0 @@
-type ResetUserResponse {
-  ok: Boolean!
-  error: String
-}
-
-type Mutation {
-  ResetUser: ResetUserResponse!
-}

@@ -1,14 +1,14 @@
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
-import User from "@src/entities/User";
-import Couple from "@src/entities/Couple";
-import Chat from "@src/entities/Chat";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
+import User from "../../../entities/User";
+import Couple from "../../../entities/Couple";
+import Chat from "../../../entities/Chat";
 import {
   UpdateCoupleStatusMutationArgs,
   UpdateCoupleStatusResponse
-} from "@src/types/graph";
-import Place from "@src/entities/Place";
-import Message from "@src/entities/Message";
+} from "../../../types/graph";
+import Place from "../../../entities/Place";
+import Message from "../../../entities/Message";
 
 const resolvers: Resolvers = {
   Mutation: {

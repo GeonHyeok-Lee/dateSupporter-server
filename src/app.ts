@@ -2,8 +2,8 @@ import cors from "cors";
 import { GraphQLServer } from "graphql-yoga";
 import helmet from "helmet";
 import morgan from "morgan";
-import schema from "@src/schema";
-import decodeJWT from "@src/utils/decodeJWT";
+import schema from "./schema";
+import decodeJWT from "./utils/decodeJWT";
 import { Response, NextFunction } from "express";
 import { PubSub } from "graphql-subscriptions";
 

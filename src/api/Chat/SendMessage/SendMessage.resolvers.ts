@@ -1,9 +1,12 @@
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
-import { SendMessageMutationArgs, SendMessageResponse } from "@src/types/graph";
-import User from "@src/entities/User";
-import Chat from "@src/entities/Chat";
-import Message from "@src/entities/Message";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
+import {
+  SendMessageMutationArgs,
+  SendMessageResponse
+} from "../../../types/graph";
+import User from "../../../entities/User";
+import Chat from "../../../entities/Chat";
+import Message from "../../../entities/Message";
 
 const resolvers: Resolvers = {
   Mutation: {

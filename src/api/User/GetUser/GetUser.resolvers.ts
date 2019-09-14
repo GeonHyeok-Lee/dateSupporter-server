@@ -1,6 +1,6 @@
-import User from "@src/entities/User";
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
+import User from "../../../entities/User";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
 
 const resolvers: Resolvers = {
   Query: {

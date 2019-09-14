@@ -1,8 +1,8 @@
-import User from "@src/entities/User";
-import Couple from "@src/entities/Couple";
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
-import { GetRequestCoupleResponse } from "@src/types/graph";
+import User from "../../../entities/User";
+import Couple from "../../../entities/Couple";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
+import { GetRequestCoupleResponse } from "../../../types/graph";
 import { getRepository } from "typeorm";
 
 const resolvers: Resolvers = {

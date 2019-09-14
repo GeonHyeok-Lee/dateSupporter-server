@@ -65,3 +65,6 @@ webpack.config.js
 
 # build
 dist
+
+# etc
+src/api/ResetUser

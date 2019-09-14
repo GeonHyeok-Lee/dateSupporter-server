@@ -2,17 +2,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "paths": {
-      "@src/*": ["dist/*"]
-    },
+    // "paths": {
+    //   "@src/*": ["src/*", "dist/*"]
+    // },
     "module": "commonjs",
     "target": "es5",
     "lib": ["es6", "dom", "esnext.asynciterable"],
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
-    // "rootDir": "src",
-    "rootDirs": ["dist"],
+    "rootDir": "./src",
+    // "rootDirs": ["src", "dist"],
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

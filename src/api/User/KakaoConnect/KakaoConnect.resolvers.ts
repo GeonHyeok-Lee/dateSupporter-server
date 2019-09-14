@@ -1,10 +1,10 @@
 import {
   KakaoConnectMutationArgs,
   KakaoConnectResponse
-} from "@src/types/graph";
-import User from "@src/entities/User";
-import { Resolvers } from "@src/types/resolvers";
-import createJWT from "@src/utils/createJWT";
+} from "../../../types/graph";
+import User from "../../../entities/User";
+import { Resolvers } from "../../../types/resolvers";
+import createJWT from "../../../utils/createJWT";
 
 const resolvers: Resolvers = {
   Mutation: {

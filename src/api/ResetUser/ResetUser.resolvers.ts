@@ -1,6 +1,6 @@
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
-import { ResetUserResponse } from "@src/types/graph";
+import { Resolvers } from "../../types/resolvers";
+import privateResolver from "../../utils/privateResolver";
+import { ResetUserResponse } from "../../types/graph";
 
 const resolvers: Resolvers = {
   Mutation: {

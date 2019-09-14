@@ -1,11 +1,11 @@
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
 import {
   RequestCoupleResponse,
   RequestCoupleMutationArgs
-} from "@src/types/graph";
-import User from "@src/entities/User";
-import Couple from "@src/entities/Couple";
+} from "../../../types/graph";
+import User from "../../../entities/User";
+import Couple from "../../../entities/Couple";
 
 const resolvers: Resolvers = {
   Mutation: {

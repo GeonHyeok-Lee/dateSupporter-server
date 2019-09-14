@@ -13,7 +13,7 @@ import {
 import User from "./User";
 import Chat from "./Chat";
 import Place from "./Place";
-import { CoupleStatus } from "@src/types/types";
+import { CoupleStatus } from "../types/types";
 
 @Entity()
 class Couple extends BaseEntity {

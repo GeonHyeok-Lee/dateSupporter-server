@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { Options } from "graphql-yoga";
-import app from "@src/app";
+import app from "./app";
 import { createConnection } from "typeorm";
-import connectionOptions from "@src/ormConfig";
+import connectionOptions from "./ormConfig";
 import decodeJWT from "./utils/decodeJWT";
 
 const PORT: number | string | undefined = process.env.PORT;

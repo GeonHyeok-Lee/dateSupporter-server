@@ -1,11 +1,11 @@
-import { Resolvers } from "@src/types/resolvers";
+import { Resolvers } from "../../../types/resolvers";
 import {
   StartPhoneVerificationMutationArgs,
   StartPhoneVerificationResponse
-} from "@src/types/graph";
-import { sendVerificationSMS } from "@src/utils/sendSMS";
-import User from "@src/entities/User";
-import PhoneVerification from "@src/entities/PhoneVerification";
+} from "../../../types/graph";
+import { sendVerificationSMS } from "../../../utils/sendSMS";
+import User from "../../../entities/User";
+import PhoneVerification from "../../../entities/PhoneVerification";
 
 const resolvers: Resolvers = {
   Mutation: {

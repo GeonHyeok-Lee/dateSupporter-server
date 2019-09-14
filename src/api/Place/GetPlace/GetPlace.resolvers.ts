@@ -1,8 +1,8 @@
-import { Resolvers } from "@src/types/resolvers";
-import privateResolver from "@src/utils/privateResolver";
-import Couple from "@src/entities/Couple";
-import { GetPlaceQueryArgs, GetPlaceResponse } from "@src/types/graph";
-import User from "@src/entities/User";
+import { Resolvers } from "../../../types/resolvers";
+import privateResolver from "../../../utils/privateResolver";
+import Couple from "../../../entities/Couple";
+import { GetPlaceQueryArgs, GetPlaceResponse } from "../../../types/graph";
+import User from "../../../entities/User";
 
 const resolvers: Resolvers = {
   Query: {

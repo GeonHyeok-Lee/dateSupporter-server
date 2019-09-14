@@ -4,6 +4,8 @@
 
 #### 스택 | Stack : Typescript, Graphql, Postgres
 
+#### 배포 : Heroku
+
 ---
 
 #### 데이트 도우미의 Backend 파트 입니다.

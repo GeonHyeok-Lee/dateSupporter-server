@@ -45,7 +45,7 @@
     "prebuild": "rm -rf dist",
     "build": "tsc",
     "postbuild": "yarn copy src/api/**/*.graphql dist/api",
-    "start": "cd dist && node ."
+    "start": "dist && node ."
   },
   "config": {
     "ionic_source_map_type": "source-map",

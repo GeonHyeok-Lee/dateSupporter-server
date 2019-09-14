@@ -62,3 +62,6 @@ typings/
 
 # webpack
 webpack.config.js
+
+# build
+dist

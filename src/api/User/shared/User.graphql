@@ -1,7 +1,6 @@
 type User {
   id: Int!
   coupleId: Int!
-  fbId: String!
   googleId: String!
   kakaoId: String!
   email: String!

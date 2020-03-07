@@ -8,47 +8,44 @@
   "license": "MIT",
   "devDependencies": {
     "@types/cors": "^2.8.5",
-    "@types/dotenv": "^6.1.1",
+    "@types/dotenv": "^8.2.0",
     "@types/helmet": "^0.0.43",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/morgan": "^1.7.36",
     "@types/node": "^12.6.8",
+    "@types/pg": "^7.14.1",
     "babel-runtime": "^6.26.0",
     "copy": "^0.3.2",
     "gql-merge": "^0.0.6",
     "graphql-to-typescript": "^0.1.2",
-    "nodemon": "^1.19.1",
+    "merge-graphql-schemas": "^1.6.2-3705b28.0",
     "ts-node": "^8.3.0",
+    "ts-node-dev": "^1.0.0-pre.44",
     "tsconfig-paths": "^3.8.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.8.2"
   },
   "dependencies": {
     "class-validator": "^0.9.1",
     "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "graphql-tools": "^4.0.5",
     "graphql-yoga": "^1.18.1",
     "helmet": "^3.20.0",
     "jsonwebtoken": "^8.5.1",
-    "merge-graphql-schemas": "^1.6.2-3705b28.0",
     "morgan": "^1.9.1",
-    "pg": "^7.12.0",
+    "pg": "^7.18.2",
     "subscriptions-transport-ws": "^0.9.16",
     "twilio": "^3.33.3",
-    "typeorm": "^0.2.18"
+    "typeorm": "^0.2.22"
   },
   "scripts": {
-    "dev": "cd src && nodemon --exec ts-node -r tsconfig-paths/register index.ts -e ts,graphql --ignore-watch node_modules",
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
     "pretypes": "gql-merge --out-file ./src/schema.graphql ./src/api/**/*.graphql",
-    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.d.ts",
+    "types": "graphql-to-typescript ./src/schema.graphql ./src/types/graph.ts",
     "prebuild": "rm -rf dist",
     "build": "tsc",
     "postbuild": "yarn copy src/api/**/*.graphql dist/api",
     "start": "cd dist && node ."
-  },
-  "config": {
-    "ionic_source_map_type": "source-map",
-    "ionic_webpack": "./webpack.config.js"
   }
 }

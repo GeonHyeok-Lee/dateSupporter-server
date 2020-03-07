@@ -17,6 +17,14 @@ const resolvers: Resolvers = {
       ): Promise<RequestCoupleResponse> => {
         const { phoneNumber } = args;
         const user: User = req.user;
+        const targetUser = await User.findOne({ phoneNumber });
+        if (!targetUser) {
+          return {
+            ok: false,
+            error: "Can't find target user",
+            couple: null
+          }
+        }
         if (!user.isRequested && !user.isAccepted && !user.isCouple) {
           try {
             const couple = await Couple.create({
@@ -46,7 +54,7 @@ const resolvers: Resolvers = {
         } else {
           return {
             ok: false,
-            error: "이미 커플이에요..",
+            error: "Already you are couple",
             couple: null
           };
         }

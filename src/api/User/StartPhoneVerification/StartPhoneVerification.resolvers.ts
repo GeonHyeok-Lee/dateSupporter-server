@@ -17,11 +17,11 @@ const resolvers: Resolvers = {
       const { phoneNumber } = args;
       const user: User = req.user;
       try {
-        const existingVerification = await PhoneVerification.findOne({
+        const existVerification = await PhoneVerification.findOne({
           phoneNumber
         });
-        if (existingVerification) {
-          existingVerification.remove();
+        if (existVerification) {
+          existVerification.remove();
         }
         const newVerification = await PhoneVerification.create({
           phoneNumber,

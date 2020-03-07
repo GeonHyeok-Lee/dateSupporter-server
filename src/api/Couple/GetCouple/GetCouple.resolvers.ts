@@ -33,14 +33,14 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "Couple Id값에 해당하는 유저를 못 찾았어요..",
+                error: "Can't match user data",
                 couple: null
               };
             }
           } else {
             return {
               ok: false,
-              error: "해당 Couple이 존재하지 않아요..",
+              error: "Not found couple",
               couple: null
             };
           }

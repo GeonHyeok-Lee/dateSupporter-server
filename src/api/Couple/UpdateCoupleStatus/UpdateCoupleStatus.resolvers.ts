@@ -20,11 +20,10 @@ const resolvers: Resolvers = {
       ): Promise<UpdateCoupleStatusResponse> => {
         const { coupleId } = args;
         const user: User = req.user;
-        if (user) {
-          try {
-            let couple: any;
+        try {
+          if (user) {
             if (args.status === "ACCEPTED") {
-              couple = await Couple.findOne(
+              const couple = await Couple.findOne(
                 {
                   id: coupleId,
                   status: "REQUESTING"
@@ -36,95 +35,109 @@ const resolvers: Resolvers = {
                 user.isCouple = true;
                 user.coupleId = couple.id;
                 await user.save();
+
                 couple.acceptUser = user;
-                const acceptUser: User = couple.acceptUser;
-                const requestUser: User = couple.requestUser;
-                requestUser.isCouple = true;
-                await requestUser.save();
+                await couple.save();
+                couple.requestUser.isCouple = true;
+                await couple.requestUser.save();
+
                 const chat: Chat = await Chat.create({
                   couple,
                   coupleId: couple.id,
-                  acceptUser,
-                  requestUser
+                  acceptUser: user,
+                  requestUser: couple.requestUser
                 }).save();
                 couple.chat = chat;
+                couple.status = args.status;
                 await couple.save();
-              }
-            } else {
-              couple = await Couple.findOne(
-                {
-                  id: args.coupleId,
-                  acceptUser: user
-                },
-                { relations: ["requestUser", "acceptUser"] }
-              );
-              if (args.status === "FINISHED") {
-                let messages;
-                const requestUser: User = couple.requestUser;
-                const chat = await Chat.findOne({ coupleId: couple.id });
-                const places = await Place.find({ coupleId: couple.id });
-                if (chat) {
-                  messages = await Message.find({ chatId: chat.id });
-                }
-                if (places) {
-                  await places.forEach(place => place.remove());
-                }
-                if (messages) {
-                  await messages.forEach(message => message.remove());
-                }
-                if (chat) {
-                  await chat.remove();
-                }
-                await couple.remove();
-                user.isAccepted = false;
-                user.isRequested = false;
-                user.isCouple = false;
-                await user.save();
-                requestUser.isAccepted = false;
-                requestUser.isRequested = false;
-                requestUser.isCouple = false;
-                await requestUser.save();
+                await pubSub.publish("coupleUpdate", {
+                  CoupleStatusSubscription: couple
+                });
                 return {
                   ok: true,
                   error: null,
                   couple
                 };
+              } else {
+                return {
+                  ok: false,
+                  error: "Can't find couple data",
+                  couple: null
+                }
               }
-            }
-            if (couple) {
-              couple.status = args.status;
-              await couple.save();
-              pubSub.publish("coupleUpdate", {
-                CoupleStatusSubscription: couple
-              });
-              return {
-                ok: true,
-                error: null,
-                couple
-              };
+            } else if (args.status === "FINISHED") {
+              const couple = await Couple.findOne(
+                {
+                  id: args.coupleId,
+                  status: "ACCEPTED"
+                },
+                { relations: ["requestUser", "acceptUser"] }
+              );
+              if (couple) {
+                const requestUser = couple.requestUser;
+                const acceptUser = couple.acceptUser;
+                const chat = await Chat.findOne({ coupleId: couple.id });
+                const places = await Place.find({ coupleId: couple.id });
+                if (!chat) throw Error("Can't find chat data");
+                if (!places) throw Error("Can't find places data");
+                const messages = await Message.find({ chatId: chat.id });
+                if (!messages) throw Error("Can't find messages data");
+                places.forEach(async (place) => await place.remove());
+                messages.forEach(async (message) => await message.remove());
+                if (user.id === acceptUser.id) {
+                  requestUser.isAccepted = false;
+                  requestUser.isRequested = false;
+                  requestUser.isCouple = false;
+                  requestUser.coupleId = -9999;
+                  await requestUser.save();
+                } else {
+                  acceptUser.isAccepted = false;
+                  acceptUser.isRequested = false;
+                  acceptUser.isCouple = false;
+                  acceptUser.coupleId = -9999;
+                  await acceptUser.save();
+                }
+                user.isAccepted = false;
+                user.isRequested = false;
+                user.isCouple = false;
+                user.coupleId = -9999;
+                await user.save();
+                await couple.remove();
+                await chat.remove();
+                return {
+                  ok: true,
+                  error: null,
+                  couple: null
+                };
+              } else {
+                return {
+                  ok: false,
+                  error: "Can't find couple data",
+                  couple: null
+                }
+              }
             } else {
               return {
                 ok: false,
-                error: "커플 정보를 갱신 할 수 없어요..",
+                error: "Can't find status argument",
                 couple: null
-              };
+              }
             }
-          } catch (error) {
+          } else {
             return {
               ok: false,
-              error: error.message,
+              error: "Can't find user data",
               couple: null
             };
           }
-        } else {
+        } catch (error) {
           return {
             ok: false,
-            error: "이미 커플이에요..",
+            error: error.message,
             couple: null
           };
         }
-      }
-    )
+      })
   }
 };
 

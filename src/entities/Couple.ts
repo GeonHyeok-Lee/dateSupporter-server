@@ -13,7 +13,8 @@ import {
 import User from "./User";
 import Chat from "./Chat";
 import Place from "./Place";
-import { CoupleStatus } from "../types/types";
+import { CoupleStatus } from "../types/custom";
+// type CoupleStatus = "ACCEPTED" | "FINISHED" | "CANCELED" | "REQUESTING";
 
 @Entity()
 class Couple extends BaseEntity {

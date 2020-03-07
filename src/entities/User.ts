@@ -44,9 +44,6 @@ class User extends BaseEntity {
   coupleId: number;
 
   @Column({ type: "text", nullable: true })
-  fbId: string;
-
-  @Column({ type: "text", nullable: true })
   googleId: string;
 
   @Column({ type: "text", nullable: true })

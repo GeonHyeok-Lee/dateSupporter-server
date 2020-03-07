@@ -22,7 +22,7 @@ const resolvers: Resolvers = {
           } else {
             return {
               ok: false,
-              error: "유저를 못 찾았어요.."
+              error: "Not found user data"
             };
           }
         } catch (error) {

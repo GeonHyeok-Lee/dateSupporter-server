@@ -30,19 +30,19 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "place와 couple의 Id값이 일치하지 않아요.."
+                error: "Can't match couple"
               };
             }
           } else {
             return {
               ok: false,
-              error: "장소 혹은 커플을 못 찾았어요.."
+              error: "Not found place or couple data"
             };
           }
         } catch (error) {
           return {
             ok: false,
-            error: "뭐야!!"
+            error: error.message
           };
         }
       }

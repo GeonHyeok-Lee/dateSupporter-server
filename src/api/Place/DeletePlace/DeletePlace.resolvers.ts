@@ -28,13 +28,13 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "place와 couple의 Id값이 일치하지 않아요.."
+                error: "Can't match couple"
               };
             }
           } else {
             return {
               ok: false,
-              error: "장소를 못 찾았어요.."
+              error: "Not found target place"
             };
           }
         } catch (error) {

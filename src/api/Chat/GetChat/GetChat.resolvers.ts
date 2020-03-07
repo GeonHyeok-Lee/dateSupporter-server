@@ -3,6 +3,7 @@ import privateResolver from "../../../utils/privateResolver";
 import { GetChatQueryArgs, GetChatResponse } from "../../../types/graph";
 import User from "../../../entities/User";
 import Chat from "../../../entities/Chat";
+import Message from "../../../entities/Message";
 
 const resolvers: Resolvers = {
   Query: {
@@ -14,9 +15,10 @@ const resolvers: Resolvers = {
             {
               id: args.chatId
             },
-            { relations: ["messages"] }
+            { relations: ["messages"] },
           );
-          if (chat) {
+          const messages = await Message.find({ where: { chatId: args.chatId }, order: { createdAt: "DESC" } });
+          if (chat && messages) {
             if (
               chat.requestUserId === user.id ||
               chat.acceptUserId === user.id
@@ -24,27 +26,31 @@ const resolvers: Resolvers = {
               return {
                 ok: true,
                 error: null,
-                chat
+                chat,
+                messages: chat.messages
               };
             } else {
               return {
                 ok: false,
                 error: "Not Authorized to see this chat",
-                chat: null
+                chat: null,
+                messages: null
               };
             }
           } else {
             return {
               ok: false,
               error: "Not found",
-              chat: null
+              chat: null,
+              messages: null
             };
           }
         } catch (error) {
           return {
             ok: false,
             error: error.message,
-            chat: null
+            chat: null,
+            messages: null
           };
         }
       }

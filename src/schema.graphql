@@ -2,6 +2,7 @@ type GetChatResponse {
   ok: Boolean!
   error: String
   chat: Chat
+  messages: [Message]
 }
 
 type Query {
@@ -32,10 +33,8 @@ type Mutation {
   AddPlace(coupleId: Int!, name: String!, contents: String!, lat: Float!, lng: Float!, address: String!): AddPlaceResponse!
   DeletePlace(coupleId: Int!, placeId: Int!): DeletePlaceResponse!
   EditPlace(coupleId: Int!, placeId: Int!, name: String!, contents: String!): EditPlaceResponse!
-  ResetUser: ResetUserResponse!
   CompletePhoneVerification(phoneNumber: String!, key: String!): CompletePhoneVerificationResponse!
   EditUser(nickname: String!, profileImage: String!): EditUserResponse!
-  FacebookConnect(firstName: String!, lastName: String!, email: String!, fbId: String!): FacebookConnectResponse!
   GoogleConnect(firstName: String!, lastName: String!, email: String!, googleId: String!, profileImage: String!): GoogleConnectResponse!
   KakaoConnect(name: String!, nickname: String!, email: String!, kakaoId: String!, profileImage: String!): KakaoConnectResponse!
   StartPhoneVerification(phoneNumber: String!): StartPhoneVerificationResponse!
@@ -158,11 +157,6 @@ type Place {
   updatedAt: String!
 }
 
-type ResetUserResponse {
-  ok: Boolean!
-  error: String
-}
-
 type CompletePhoneVerificationResponse {
   ok: Boolean!
   error: String
@@ -171,12 +165,6 @@ type CompletePhoneVerificationResponse {
 type EditUserResponse {
   ok: Boolean!
   error: String
-}
-
-type FacebookConnectResponse {
-  ok: Boolean!
-  error: String
-  token: String
 }
 
 type GetUserResponse {
@@ -200,7 +188,6 @@ type KakaoConnectResponse {
 type User {
   id: Int!
   coupleId: Int!
-  fbId: String!
   googleId: String!
   kakaoId: String!
   email: String!

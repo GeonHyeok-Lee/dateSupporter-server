@@ -28,7 +28,7 @@ const resolvers: Resolvers = {
             } else {
               return {
                 ok: false,
-                error: "해당 Couple이 존재하지 않아요..",
+                error: "Not found couple",
                 couple: null
               };
             }
